@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LWHA Adoption Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+
+    .tabs {
+      display: flex;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      margin-right: 5px;
+      border-radius: 4px;
+    }
+
+    .tab:hover {
+      background-color: #ddd;
+    }
+
+    .tab.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    /* Initially hide all sections except the first one */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    form {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h3 {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none; /* Disables resizing of the textarea */
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .form-row div {
+      flex: 1;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+
+    .required {
+      color: red; /* Makes the asterisk red */
+      font-weight: bold; /* Makes the asterisk bold */
+    }
+
+    .alignment {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+    }
+
+    .alignment input {
+      margin-top: 15px;
+      width: 5%;
+    }
+
+    .alignment label {
+      width: 100%;
+      /* padding: 10px; */
+    }
+
+  </style>
+
+</head>
+<body>
+  <h1>LWHA Adoption Application</h1>
+
+  <!-- Tab Navigation -->
+  <div class="tabs">
+    <div class="tab active" data-tab="applicant">Applicant</div>
+    <div class="tab" data-tab="home-environment">Home Environment</div>
+    <div class="tab" data-tab="pet-ownership">Pet Ownership</div>
+    <div class="tab" data-tab="administrative">Administrative</div>
+    <div class="tab" data-tab="submit">Submit</div>
+  </div>
+
+  <form id="adoption_form">
+    <!-- TAB 1: Applicant -->
+    <div id="applicant" class="tab-content active">
+        <div class="form-row">
+          <div>
+              <h3 for="firstname">First Name <span class="required">*</span></h3>
+              <input type="text" id="firstname" name="firstname" required>
+          </div>
+          <div>
+              <h3 for="last_name">Last Name <span class="required">*</span></h3>
+              <input type="text" id="last_name" name="last_name" required>
+          </div>
+      </div>
+
+      <h3 for="email">Email <span class="required">*</span></h3>
+      <input type="email" id="email" name="email" required>
+
+      <h3 for="phone">Phone <span class="required">*</span></h3>
+      <input type="tel" id="phone" name="phone" required>
+
+      <h3 for="instagram">If applicable, please provide your Instagram handle:</h3>
+      <input type="text" id="instagram" name="instagram"></input>
+
+      <h3 for="address">Address <span class="required">*</span></h3>
+      <input type="text" id="address" name="address" required></input>
+
+      <div class="form-row">
+        <div>
+          <h3 for="city">City <span class="required">*</span></h3>
+          <input type="text" id="city" name="city" required>
+        </div>
+        <div>
+          <h3 for="states">Select Your State: <span class="required">*</span></h3>
+          <select id="states" name="states" required>
+            <option value="" disabled selected>Select a state</option>
+          </select>
+        </div>
+        <div>
+          <h3 for="zip">ZIP Code <span class="required">*</span></h3>
+          <input type="number" id="zip" name="zip" required>
+        </div>
+      </div>
+
+      <h3 for="age">Applicant's Age <span class="required">*</span></h3>
+      <input type="number" id="age" name="age" required>
+
+      <h3 for="occupation">Applicant's Occupation <span class="required">*</span></h3>
+      <input type="text" id="occupation" name="occupation" required>
+
+      <h3 for="employer">Applicant's Employer <span class="required">*</span></h3>
+      <input type="text" id="employer" name="employer" required>
+
+      <h3 for="previous_adopter">If you have adopted an animal from our program before, please check the box below:</h3>
+      <input type="checkbox" id="previous_adopter" name="previous_adopter">
+
+      <h3 for="adopted_pet">If you have adopted from us before, what was their name in our program?</h3>
+      <input type="text" id="adopted_pet" name="adopted_pet">
+
+      <h3 for="animal_dropdown">Select the animal you want to adopt: <span class="required">*</span></h3>
+      <select id="animal_dropdown" name="animal_dropdown" required>
+        <option value="">Select an animal...</option>
+      </select>
+
+      <h3 for="pet_discovery">How did you find out about this pet? <span class="required">*</span></h3>
+      <div id="pet_discovery_container" name="pet_discovery" required></div>
+      
+      <h3 for="pet_type">What type of animal are you interested in adopting? <span class="required">*</span></h3>
+      <div id="pet_type_container" name="pet_type" required></div>
+
+      <h3 for="transport"> PLEASE NOTE: <span class="required">*</h3>
+        <div style="margin: 0%;">
+          Yes, we offer transport anywhere in the United States by ground or plane. We are happy to help coach our families through the transport process, but unfortunately, these fees cannot be waived or reduced as they are set by third parties. Transportation is $200 for one dog, or $150 each for multiple dogs.
+        </div>
+        <div class="alignment">
+          <input type="radio" id="transport-yes" name="transport" value="Yes! I understand interstate transport adds $200 onto the adoption cost." required>
+          <label for="transport-yes">Yes! I understand interstate transport adds $200 onto the adoption cost.</label>
+        </div>
+        
+        <div class="alignment">
+          <input type="radio" id="transport-no" name="transport" value="I will come get my baby, so these services will not be needed.">
+          <label for="transport-no">I will come get my baby, so these services will not be needed.</label>
+        </div>
+
+    </div>
+
+    
+    <!-- TAB 2: Home Environment -->
+    <!-- TAB 3: Pet Ownership -->
+    <!-- TAB 4: Administative -->
+
+
+
+    <!-- TAB: 5 Submit -->
+    <div id="submit" class="tab-content">
+      <button type="submit">Submit Application</button>
+      <div id="form-message" class="error"></div>
+
+    </div>
+    
+
+  </form>
+
+  <script>
+
+    // Tab Navigation Logic
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Deactivate all tabs and hide all content
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        // Activate the clicked tab and its corresponding content
+        tab.classList.add('active');
+        const tabId = tab.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // List of U.S. States
+    const states = [
+      "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", 
+      "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", 
+      "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", 
+      "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
+      "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", 
+      "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", 
+      "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+    ];
+    // Get the dropdown elements
+    const state_element = document.getElementById('states');
+    // Generate the state options
+    states.forEach(state => {
+      const option = document.createElement('option');
+      option.value = state;
+      option.textContent = state;
+      state_element.appendChild(option);
+    });
+
+    
+    // List of ways to discover pet
+    const pet_discovery = [
+      { id: "kbtv", value: "News: KBTX" },
+      { id: "zone1150", value: "Radio: Zone 1150" },
+      { id: "candy95", value: "Radio: Candy95" },
+      { id: "wtaw1620", value: "Radio: WTAW 1620" },
+      { id: "maverick1009", value: "Radio: Maverick 100.9" },
+      { id: "peace1077", value: "Radio: Peace 107.7" },
+      { id: "petfinder", value: "Petfinder/Adoptapet" },
+      { id: "google", value: "Google" },
+      { id: "facebook", value: "Social Media: Facebook" },
+      { id: "instagram", value: "Social Media: Instagram" },
+      { id: "tiktok", value: "Social Media: TikTok" },
+      { id: "linkedin", value: "Social Media: LinkedIn" },
+      { id: "community-event", value: "Community Event" },
+      { id: "word-of-mouth", value: "Word of Mouth" },
+      { id: "other", value: "Other" }
+    ];
+    // Get the radio elements
+    const pet_discovery_element = document.getElementById("pet_discovery_container");
+    // Generate the pet discovery options
+    pet_discovery.forEach(option => {
+      const div = document.createElement("div");
+      div.classList.add("alignment");
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.id = option.id;
+      input.name = "pet_discovery";
+      input.value = option.value;
+
+      const label = document.createElement("label");
+      label.setAttribute("for", option.id);
+      label.textContent = option.value;
+
+      div.appendChild(input);
+      div.appendChild(label);
+      pet_discovery_element.appendChild(div);
+    });
+
+    
+  // List of pet types
+  const pet_type = [
+    { id: "puppy", value: "Puppy" },
+    { id: "adult-dog", value: "Adult dog" },
+    { id: "senior-dog", value: "Senior dog" },
+    { id: "kitten", value: "Kitten" },
+    { id: "adult-cat", value: "Adult cat" },
+    { id: "senior-cat", value: "Senior cat" },
+    { id: "livestock", value: "Livestock" },
+    { id: "pocket-pet", value: "Pocket pet" }
+  ];
+  // Get the checklist elements
+  const pet_type_element = document.getElementById("pet_type_container");
+  // Generate the pet type options
+  pet_type.forEach(option => {
+    const div = document.createElement("div");
+    div.classList.add("alignment");
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.id = option.id;
+    input.name = "pet_type";
+    input.value = option.value;
+
+    const label = document.createElement("label");
+    label.setAttribute("for", option.id);
+    label.textContent = option.value;
+
+    div.appendChild(input);
+    div.appendChild(label);
+    pet_type_element.appendChild(div);
+  });
+
+
+    // Sample Animal Data Fetch
+    async function populateDropdown() {
+      const url = "https://us09d.sheltermanager.com/service?method=animal_view_adoptable_js&account=dm1425";
+      const dropdown = document.getElementById("animal_dropdown");
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch animal data.");
+
+        const text = await response.text();
+        const match = text.match(/var adoptables = (\[.*?\]);/s);
+        if (match) {
+          const animals = JSON.parse(match[1]);
+          dropdown.innerHTML = "<option value=''>Select an animal...</option>";
+          animals.forEach(animal => {
+            const option = document.createElement("option");
+            option.value = animal.ANIMALNAME;
+            option.textContent = animal.ANIMALNAME || "Unknown";
+            dropdown.appendChild(option);
+          });
+        } else {
+          throw new Error("Could not parse animal data.");
+        }
+      } catch (error) {
+        console.error(error);
+        dropdown.innerHTML = "<option value=''>No animals available</option>";
+      }
+    }
+
+
+    // Handle Form Submission
+    document.getElementById("adoption_form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const formMessage = document.getElementById("form-message");
+
+      try {
+        const data = {};
+        formData.forEach((value, key) => (data[key] = value));
+        console.log("Submitted Data:", data);
+
+        // Simulate form submission success
+        formMessage.style.color = "green";
+        formMessage.textContent = "Application submitted successfully!";
+        form.reset();
+      } catch (error) {
+        console.error(error);
+        formMessage.style.color = "red";
+        formMessage.textContent = "An error occurred while submitting the application.";
+      }
+    });
+
+    // Initialize Dropdown
+    window.onload = populateDropdown;
+  </script>
+</body>
+</html>
+
+

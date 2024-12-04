@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LWHA Adoption Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+
+    .tabs {
+      display: flex;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      margin-right: 5px;
+      border-radius: 4px;
+    }
+
+    .tab:hover {
+      background-color: #ddd;
+    }
+
+    .tab.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    /* Initially hide all sections except the first one */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    form {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h3 {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none; /* Disables resizing of the textarea */
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .form-row div {
+      flex: 1;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+
+    .required {
+      color: red;
+      font-weight: bold;
+    }
+
+    .alignment {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+    }
+
+    .alignment input {
+      margin-top: 15px;
+      width: 5%;
+    }
+
+    .alignment label {
+      width: 100%;
+    }
+
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .navigation-buttons .prev {
+      align-self: flex-start;
+      visibility: hidden; /* Hidden by default for the first tab */
+      width: auto;
+      margin-right: auto;
+    }
+
+    .navigation-buttons .next,
+    .navigation-buttons .submit {
+      align-self: flex-end;
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>LWHA Adoption Application</h1>
+
+  <!-- Tab Navigation -->
+  <div class="tabs">
+    <div class="tab active" data-tab="applicant">Applicant</div>
+    <div class="tab" data-tab="home-environment">Home Environment</div>
+    <div class="tab" data-tab="pet-ownership">Pet Ownership</div>
+    <div class="tab" data-tab="administrative">Administrative</div>
+    <div class="tab" data-tab="submit">Submit</div>
+  </div>
+
+  <form id="adoption_form">
+    <!-- TAB 1: Applicant -->
+    <div id="applicant" class="tab-content active">
+      <!-- Form Fields for Applicant -->
+      <!-- Include the same form fields from your original code -->
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="button" class="next">Next</button>
+      </div>
+    </div>
+
+    <!-- TAB 2: Home Environment -->
+    <div id="home-environment" class="tab-content">
+      <!-- Form Fields for Home Environment -->
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="button" class="next">Next</button>
+      </div>
+    </div>
+
+    <!-- TAB 3: Pet Ownership -->
+    <div id="pet-ownership" class="tab-content">
+      <!-- Form Fields for Pet Ownership -->
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="button" class="next">Next</button>
+      </div>
+    </div>
+
+    <!-- TAB 4: Administrative -->
+    <div id="administrative" class="tab-content">
+      <!-- Form Fields for Administrative -->
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="button" class="next">Next</button>
+      </div>
+    </div>
+
+    <!-- TAB 5: Submit -->
+    <div id="submit" class="tab-content">
+      <!-- Form Fields for Submit -->
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="submit" class="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const prevButtons = document.querySelectorAll('.prev');
+    const nextButtons = document.querySelectorAll('.next');
+
+    let currentTab = 0; // Tracks the active tab index
+
+    function updateTabs() {
+      // Update tab visibility
+      tabs.forEach((tab, index) => {
+        tab.classList.toggle('active', index === currentTab);
+      });
+      tabContents.forEach((content, index) => {
+        content.classList.toggle('active', index === currentTab);
+      });
+
+      // Update button visibility
+      prevButtons.forEach(btn => (btn.style.visibility = currentTab === 0 ? 'hidden' : 'visible'));
+    }
+
+    prevButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentTab > 0) {
+          currentTab--;
+          updateTabs();
+        }
+      });
+    });
+
+    nextButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentTab < tabs.length - 1) {
+          currentTab++;
+          updateTabs();
+        }
+      });
+    });
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        currentTab = index;
+        updateTabs();
+      });
+    });
+
+    // Initialize Tab Navigation
+    updateTabs();
+  </script>
+</body>
+</html>
