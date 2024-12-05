@@ -109,6 +109,26 @@
       /* padding: 10px; */
     }
 
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .navigation-buttons .prev {
+      align-self: flex-start;
+      visibility: hidden; /* Hidden by default for the first tab */
+      width: auto;
+      margin-right: auto;
+    }
+
+    .navigation-buttons .next,
+    .navigation-buttons .submit {
+      align-self: flex-end;
+      width: auto;
+    }
+
   </style>
 
 </head>
@@ -206,21 +226,52 @@
           <input type="radio" id="transport-no" name="transport" value="I will come get my baby, so these services will not be needed.">
           <label for="transport-no">I will come get my baby, so these services will not be needed.</label>
         </div>
+        <div class="navigation-buttons">
+          <button type="button" class="prev">Previous</button>
+          <button type="button" class="next">Next</button>
+        </div>
 
     </div>
 
     
     <!-- TAB 2: Home Environment -->
+    <div id="home-environment" class="tab-content">
+      <!-- Form Fields for Home Environment -->
+      <!-- Add other form fields here -->
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="button" class="next">Next</button>
+      </div>
+    </div>
     <!-- TAB 3: Pet Ownership -->
-    <!-- TAB 4: Administative -->
+    <div id="pet-ownership" class="tab-content">
+      <!-- Form Fields for Pet Ownership -->
+      <!-- Add other form fields here -->
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="button" class="next">Next</button>
+      </div>
+    </div>
+
+    <!-- TAB 4: Administrative -->
+    <div id="administrative" class="tab-content">
+      <!-- Form Fields for Administrative -->
+      <!-- Add other form fields here -->
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="button" class="next">Next</button>
+      </div>
+    </div>
 
 
 
     <!-- TAB: 5 Submit -->
     <div id="submit" class="tab-content">
-      <button type="submit">Submit Application</button>
       <div id="form-message" class="error"></div>
-
+      <div class="navigation-buttons">
+        <button type="button" class="prev">Previous</button>
+        <button type="submit" class="submit">Submit</button>
+      </div>
     </div>
     
 
@@ -231,19 +282,52 @@
     // Tab Navigation Logic
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
+    const prevButtons = document.querySelectorAll('.prev');
+    const nextButtons = document.querySelectorAll('.next');
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Deactivate all tabs and hide all content
-        tabs.forEach(t => t.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
+    let currentTab = 0; // Tracks the active tab index
 
-        // Activate the clicked tab and its corresponding content
-        tab.classList.add('active');
-        const tabId = tab.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
+    function updateTabs() {
+      // Update tab visibility
+      tabs.forEach((tab, index) => {
+        tab.classList.toggle('active', index === currentTab);
+      });
+      tabContents.forEach((content, index) => {
+        content.classList.toggle('active', index === currentTab);
+      });
+
+      // Update button visibility
+      prevButtons.forEach(btn => (btn.style.visibility = currentTab === 0 ? 'hidden' : 'visible'));
+    }
+
+    prevButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentTab > 0) {
+          currentTab--;
+          updateTabs();
+        }
       });
     });
+
+    nextButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentTab < tabs.length - 1) {
+          currentTab++;
+          updateTabs();
+        }
+      });
+    });
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        currentTab = index;
+        updateTabs();
+      });
+    });
+
+    // Initialize Tab Navigation
+    updateTabs();
+
 
     // List of U.S. States
     const states = [
@@ -399,5 +483,4 @@
   </script>
 </body>
 </html>
-
 

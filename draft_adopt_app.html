@@ -11,38 +11,6 @@
       line-height: 1.6;
     }
 
-    .tabs {
-      display: flex;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-
-    .tab {
-      padding: 10px 20px;
-      background-color: #f1f1f1;
-      border: 1px solid #ccc;
-      margin-right: 5px;
-      border-radius: 4px;
-    }
-
-    .tab:hover {
-      background-color: #ddd;
-    }
-
-    .tab.active {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    /* Initially hide all sections except the first one */
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
     form {
       max-width: 600px;
       margin: auto;
@@ -89,8 +57,8 @@
     }
 
     .required {
-      color: red;
-      font-weight: bold;
+      color: red; /* Makes the asterisk red */
+      font-weight: bold; /* Makes the asterisk bold */
     }
 
     .alignment {
@@ -106,136 +74,77 @@
 
     .alignment label {
       width: 100%;
+      /* padding: 10px; */
     }
 
-    .navigation-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
+    .asm-label {
+      display: none;
     }
 
-    .navigation-buttons .prev {
-      align-self: flex-start;
-      visibility: hidden; /* Hidden by default for the first tab */
-      width: auto;
-      margin-right: auto;
+      /* Style text inputs */
+    input[type="text"], input[type="email"], select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
     }
 
-    .navigation-buttons .next,
-    .navigation-buttons .submit {
-      align-self: flex-end;
-      width: auto;
+    /* Style the submit button */
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
     }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
   </style>
+
 </head>
 <body>
   <h1>LWHA Adoption Application</h1>
 
-  <!-- Tab Navigation -->
-  <div class="tabs">
-    <div class="tab active" data-tab="applicant">Applicant</div>
-    <div class="tab" data-tab="home-environment">Home Environment</div>
-    <div class="tab" data-tab="pet-ownership">Pet Ownership</div>
-    <div class="tab" data-tab="administrative">Administrative</div>
-    <div class="tab" data-tab="submit">Submit</div>
-  </div>
-
-  <form id="adoption_form">
-    <!-- TAB 1: Applicant -->
-    <div id="applicant" class="tab-content active">
-      <!-- Form Fields for Applicant -->
-      <!-- Include the same form fields from your original code -->
-      <div class="navigation-buttons">
-        <button type="button" class="prev">Previous</button>
-        <button type="button" class="next">Next</button>
-      </div>
-    </div>
-
-    <!-- TAB 2: Home Environment -->
-    <div id="home-environment" class="tab-content">
-      <!-- Form Fields for Home Environment -->
-      <div class="navigation-buttons">
-        <button type="button" class="prev">Previous</button>
-        <button type="button" class="next">Next</button>
-      </div>
-    </div>
-
-    <!-- TAB 3: Pet Ownership -->
-    <div id="pet-ownership" class="tab-content">
-      <!-- Form Fields for Pet Ownership -->
-      <div class="navigation-buttons">
-        <button type="button" class="prev">Previous</button>
-        <button type="button" class="next">Next</button>
-      </div>
-    </div>
-
-    <!-- TAB 4: Administrative -->
-    <div id="administrative" class="tab-content">
-      <!-- Form Fields for Administrative -->
-      <div class="navigation-buttons">
-        <button type="button" class="prev">Previous</button>
-        <button type="button" class="next">Next</button>
-      </div>
-    </div>
-
-    <!-- TAB 5: Submit -->
-    <div id="submit" class="tab-content">
-      <!-- Form Fields for Submit -->
-      <div class="navigation-buttons">
-        <button type="button" class="prev">Previous</button>
-        <button type="submit" class="submit">Submit</button>
-      </div>
-    </div>
-  </form>
-
   <script>
-    const tabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
-    const prevButtons = document.querySelectorAll('.prev');
-    const nextButtons = document.querySelectorAll('.next');
+    // Sample Animal Data Fetch
+    async function populateDropdown() {
+      const url = "https://us09d.sheltermanager.com/service?method=animal_view_adoptable_js&account=dm1425";
+      const dropdown = document.getElementById("asm-onlineform-adoptableanimal");
 
-    let currentTab = 0; // Tracks the active tab index
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch animal data.");
 
-    function updateTabs() {
-      // Update tab visibility
-      tabs.forEach((tab, index) => {
-        tab.classList.toggle('active', index === currentTab);
-      });
-      tabContents.forEach((content, index) => {
-        content.classList.toggle('active', index === currentTab);
-      });
-
-      // Update button visibility
-      prevButtons.forEach(btn => (btn.style.visibility = currentTab === 0 ? 'hidden' : 'visible'));
+        const text = await response.text();
+        const match = text.match(/var adoptables = (\[.*?\]);/s);
+        if (match) {
+          const animals = JSON.parse(match[1]);
+          dropdown.innerHTML = "<option value=''>Select an animal...</option>";
+          animals.forEach(animal => {
+            const option = document.createElement("option");
+            option.value = animal.ANIMALNAME;
+            option.textContent = animal.ANIMALNAME || "Unknown";
+            dropdown.appendChild(option);
+          });
+        } else {
+          throw new Error("Could not parse animal data.");
+        }
+      } catch (error) {
+        console.error(error);
+        dropdown.innerHTML = "<option value=''>No animals available</option>";
+      }
     }
+    // Initialize Dropdown
+    window.onload = populateDropdown;
 
-    prevButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        if (currentTab > 0) {
-          currentTab--;
-          updateTabs();
-        }
-      });
-    });
-
-    nextButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        if (currentTab < tabs.length - 1) {
-          currentTab++;
-          updateTabs();
-        }
-      });
-    });
-
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => {
-        currentTab = index;
-        updateTabs();
-      });
-    });
-
-    // Initialize Tab Navigation
-    updateTabs();
   </script>
 </body>
 </html>
+
