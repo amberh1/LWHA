@@ -6,7 +6,7 @@
   <title>LWHA Adoption Application</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Oswald, sans-serif;
       margin: 20px;
       line-height: 1.6;
     }
@@ -85,6 +85,7 @@
 
     .form-row div {
       flex: 1;
+      width: 100%;
     }
 
     .error {
@@ -133,6 +134,16 @@
       width: auto;
     }
 
+    input[type="submit"] {
+      background-color: #e85b93;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
   </style>
 
 </head>
@@ -157,10 +168,10 @@
               <input type="text" id="firstname" name="firstname" required>
           </div>
           <div>
-              <h3 for="last_name">Last Name <span class="required">*</span></h3>
-              <input type="text" id="last_name" name="last_name" required>
+              <h3 for="lastname">Last Name <span class="required">*</span></h3>
+              <input type="text" id="lastname" name="lastname" required>
           </div>
-      </div>
+        </div>
 
       <h3 for="email">Email <span class="required">*</span></h3>
       <input type="email" id="email" name="email" required>
@@ -180,7 +191,7 @@
           <input type="text" id="city" name="city" required>
         </div>
         <div>
-          <h3 for="states">Select Your State: <span class="required">*</span></h3>
+          <h3 for="states">State <span class="required">*</span></h3>
           <select id="states" name="states" required>
             <option value="" disabled selected>Select a state</option>
           </select>
@@ -200,14 +211,14 @@
       <h3 for="employer">Applicant's Employer <span class="required">*</span></h3>
       <input type="text" id="employer" name="employer" required>
 
-      <h3 for="previous_adopter">If you have adopted an animal from our program before, please check the box below:</h3>
-      <input type="checkbox" id="previous_adopter" name="previous_adopter">
+      <h3 for="previousadopter">If you have adopted an animal from our program before, please check the box below:</h3>
+      <input type="checkbox" id="previousadopter" name="previousadopter">
 
       <h3 for="adopted_pet">If you have adopted from us before, what was their name in our program?</h3>
       <input type="text" id="adopted_pet" name="adopted_pet">
 
-      <h3 for="animal_dropdown">Select the animal you want to adopt: <span class="required">*</span></h3>
-      <select id="animal_dropdown" name="animal_dropdown" required>
+      <h3 for="animalname">Select the animal you want to adopt: <span class="required">*</span></h3>
+      <select id="animalname" name="animalname" required>
         <option value="">Select an animal...</option>
       </select>
 
@@ -432,7 +443,7 @@
     // Sample Animal Data Fetch
     async function populateDropdown() {
       const url = "https://us09d.sheltermanager.com/service?method=animal_view_adoptable_js&account=dm1425";
-      const dropdown = document.getElementById("animal_dropdown");
+      const dropdown = document.getElementById("animalname");
 
       try {
         const response = await fetch(url);
@@ -459,28 +470,28 @@
     }
 
 
-    // Handle Form Submission
-    document.getElementById("adoption_form").addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const form = event.target;
-      const formData = new FormData(form);
-      const formMessage = document.getElementById("form-message");
+    // // Handle Form Submission
+    // document.getElementById("adoption_form").addEventListener("submit", async (event) => {
+    //   event.preventDefault();
+    //   const form = event.target;
+    //   const formData = new FormData(form);
+    //   const formMessage = document.getElementById("form-message");
 
-      try {
-        const data = {};
-        formData.forEach((value, key) => (data[key] = value));
-        console.log("Submitted Data:", data);
+    //   try {
+    //     const data = {};
+    //     formData.forEach((value, key) => (data[key] = value));
+    //     console.log("Submitted Data:", data);
 
-        // Simulate form submission success
-        formMessage.style.color = "green";
-        formMessage.textContent = "Application submitted successfully!";
-        form.reset();
-      } catch (error) {
-        console.error(error);
-        formMessage.style.color = "red";
-        formMessage.textContent = "An error occurred while submitting the application.";
-      }
-    });
+    //     // Simulate form submission success
+    //     formMessage.style.color = "green";
+    //     formMessage.textContent = "Application submitted successfully!";
+    //     form.reset();
+    //   } catch (error) {
+    //     console.error(error);
+    //     formMessage.style.color = "red";
+    //     formMessage.textContent = "An error occurred while submitting the application.";
+    //   }
+    // });
 
     // Initialize Dropdown
     window.onload = populateDropdown;
