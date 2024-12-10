@@ -15,6 +15,11 @@
         <label for="lastname">Last Name:</label>
         <input type="text" id="lastname" name="lastname" required><br><br>
 
+        <h3 for="animalname">Select the animal you want to adopt: <span class="required">*</span></h3>
+        <select id="animalname" name="animalname" required>
+          <option value="">Select an animal...</option>
+        </select>
+
         <!-- Hidden Fields -->
         <input type="hidden" name="method" value="online_form_post">
         <input type="hidden" name="account" value="lwha">
@@ -25,5 +30,39 @@
         
         <button type="submit">Submit</button>
     </form>
+    <script>
+
+    // Sample Animal Data Fetch
+    async function populateDropdown() {
+      const url = "https://us09d.sheltermanager.com/service?method=animal_view_adoptable_js&account=dm1425";
+      const dropdown = document.getElementById("animalname");
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch animal data.");
+
+        const text = await response.text();
+        const match = text.match(/var adoptables = (\[.*?\]);/s);
+        if (match) {
+          const animals = JSON.parse(match[1]);
+          dropdown.innerHTML = "<option value=''>Select an animal...</option>";
+          animals.forEach(animal => {
+            const option = document.createElement("option");
+            option.value = animal.ANIMALNAME;
+            option.textContent = animal.ANIMALNAME || "Unknown";
+            dropdown.appendChild(option);
+          });
+        } else {
+          throw new Error("Could not parse animal data.");
+        }
+      } catch (error) {
+        console.error(error);
+        dropdown.innerHTML = "<option value=''>No animals available</option>";
+      }
+    }
+
+    // Initialize Dropdown
+    window.onload = populateDropdown;
+  </script>
 </body>
 </html>
