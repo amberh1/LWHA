@@ -1,22 +1,29 @@
-<!-- Testing posting to incoming forms -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption Form</title>
+</head>
+<body>
+    <h1>Adoption Form</h1>
+    <form id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8">
+        <!-- User Input Fields -->
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" required><br><br>
 
-<form id="adoption_form" action="https://us09d.sheltermanager.com/onlineform_incoming" method="POST">
-  <!-- Hidden inputs copied from the original form -->
-  <input type="hidden" name="hidden_field_1" value="value_1">
-  <input type="hidden" name="hidden_field_2" value="value_2">
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" required><br><br>
 
-  <!-- Custom fields with same names as original form -->
-  <div>
-    <label for="firstname">First Name:</label>
-    <input type="text" id="firstname" name="firstname" required>
-  </div>
-  
-  <div>
-    <label for="lastname">Last Name:</label>
-    <input type="text" id="lastname" name="lastname" required>
-  </div>
-  
-  <!-- Add other fields similarly, ensuring 'name' matches -->
-  
-  <button type="submit">Submit</button>
-</form>
+        <!-- Hidden Fields -->
+        <input type="hidden" name="method" value="online_form_post">
+        <input type="hidden" name="account" value="lwha">
+        <input type="hidden" name="redirect" value="">
+        <input type="hidden" name="retainfor" value="0">
+        <input type="hidden" name="flags" value="Adoption Applicant">
+        <input type="hidden" name="formname" value="AMBER TEST 2">
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
