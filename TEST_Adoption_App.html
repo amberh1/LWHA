@@ -179,8 +179,8 @@
       <h3 for="phone">Phone <span class="required">*</span></h3>
       <input type="tel" id="phone" name="phone" required>
 
-      <h3 for="instagram">If applicable, please provide your Instagram handle:</h3>
-      <input type="text" id="instagram" name="instagram"></input>
+      <h3 for="instagram_handle">If applicable, please provide your Instagram handle:</h3>
+      <input type="text" id="instagram_handle" name="instagram_handle"></input>
 
       <h3 for="address">Address <span class="required">*</span></h3>
       <input type="text" id="address" name="address" required></input>
@@ -468,30 +468,6 @@
         dropdown.innerHTML = "<option value=''>No animals available</option>";
       }
     }
-
-
-    // // Handle Form Submission
-    // document.getElementById("adoption_form").addEventListener("submit", async (event) => {
-    //   event.preventDefault();
-    //   const form = event.target;
-    //   const formData = new FormData(form);
-    //   const formMessage = document.getElementById("form-message");
-
-    //   try {
-    //     const data = {};
-    //     formData.forEach((value, key) => (data[key] = value));
-    //     console.log("Submitted Data:", data);
-
-    //     // Simulate form submission success
-    //     formMessage.style.color = "green";
-    //     formMessage.textContent = "Application submitted successfully!";
-    //     form.reset();
-    //   } catch (error) {
-    //     console.error(error);
-    //     formMessage.style.color = "red";
-    //     formMessage.textContent = "An error occurred while submitting the application.";
-    //   }
-    // });
 
     // Initialize Dropdown
     window.onload = populateDropdown;
