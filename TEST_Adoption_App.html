@@ -173,8 +173,8 @@
           </div>
         </div>
 
-      <h3 for="email">Email <span class="required">*</span></h3>
-      <input type="email" id="email" name="email" required>
+      <h3 for="emailaddress">Email <span class="required">*</span></h3>
+      <input type="emailaddress" id="emailaddress" name="emailaddress" required>
 
       <h3 for="phone">Phone <span class="required">*</span></h3>
       <input type="tel" id="phone" name="phone" required>
@@ -191,8 +191,8 @@
           <input type="text" id="city" name="city" required>
         </div>
         <div>
-          <h3 for="states">State <span class="required">*</span></h3>
-          <select id="states" name="states" required>
+          <h3 for="f290">State <span class="required">*</span></h3>
+          <select id="f290" name="state_290" required>
             <option value="" disabled selected>Select a state</option>
           </select>
         </div>
@@ -258,6 +258,8 @@
         <button type="button" class="next">Next</button>
       </div>
     </div>
+
+
     <!-- TAB 3: Pet Ownership -->
     <div id="pet-ownership" class="tab-content">
       <!-- Form Fields for Pet Ownership -->
@@ -267,6 +269,7 @@
         <button type="button" class="next">Next</button>
       </div>
     </div>
+
 
     <!-- TAB 4: Administrative -->
     <div id="administrative" class="tab-content">
@@ -278,8 +281,7 @@
       </div>
     </div>
 
-
-
+    
     <!-- TAB: 5 Submit -->
     <div id="submit" class="tab-content">
       <div id="form-message" class="error"></div>
@@ -346,16 +348,18 @@
 
     // List of U.S. States
     const states = [
-      "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", 
-      "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", 
-      "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", 
-      "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
-      "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", 
-      "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", 
-      "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+      "Texas", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", 
+      "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", 
+      "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", 
+      "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", 
+      "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", 
+      "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Utah", "Vermont", "Virginia", 
+      "Washington", "West Virginia", "Wisconsin", "Wyoming", "Washington DC", "ARMED FORCES AFRICA", 
+      "CANADA", "EUROPE", "MIDDLE EAST", "ARMED FORCES AMERICA (EXCEPT CANADA)", "ARMED FORCES PACIFIC"
     ];
+
     // Get the dropdown elements
-    const state_element = document.getElementById('states');
+    const state_element = document.getElementById('f290');
     // Generate the state options
     states.forEach(state => {
       const option = document.createElement('option');
