@@ -153,7 +153,7 @@
     <div class="tab" data-tab="submit">Submit</div>
   </div>
 
-  <form id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8">
+  <form id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8" onsubmit="updateSpeciesList()">
     <!-- User Input Fields -->
     <div id="applicant" class="tab-content active">
       <!-- <div class="form-row">
@@ -226,31 +226,41 @@
       <h3 for="f297">How did you find out about this pet? <span class="required">*</span></h3>
       <div id="f297" name="petdiscovery_297" required></div> -->
       
-      <h3>What type of animal are you interested in adopting? <span class="required">*</span></h3>
-      <div id="f298" data-name="species_298" style="display: inline-block;">
-        <input type="checkbox" id="f298_0" name="species_0" value="Puppy">
-        <label for="f298_0">Puppy</label><br>
-    
-        <input type="checkbox" id="f298_1" name="species_1" value="Adult dog">
-        <label for="f298_1">Adult dog</label><br>
-    
-        <input type="checkbox" id="f298_2" name="species_2" value="Senior dog">
-        <label for="f298_2">Senior dog</label><br>
-    
-        <input type="checkbox" id="f298_3" name="species_3" value="Kitten">
-        <label for="f298_3">Kitten</label><br>
-    
-        <input type="checkbox" id="f298_4" name="species_4" value="Adult cat">
-        <label for="f298_4">Adult cat</label><br>
-      </div>
-    
-      <!-- Hidden input field -->
-      <input type="hidden" name="species_298" id="f298" value="">
-    
-      <!-- <input type="submit" value="Submit"> -->
-      
-      
-      
+      <h3 for="f298">What type of animal are you interested in adopting? <span class="required">*</span></h3>
+      <div id="f298" data-name="species_298" data-required="required">
+        <div class="alignment">
+          <input type="checkbox" id="f298_0" value="Puppy" /> 
+          <label for="f298_0">Puppy</label>
+        </div>
+        <div class="alignment">
+          <input type="checkbox" id="f298_1" value="Adult dog" /> 
+          <label for="f298_1">Adult dog</label>
+        </div>
+        <div class="alignment">
+          <input type="checkbox" id="f298_2" value="Senior dog" /> 
+          <label for="f298_2">Senior dog</label>
+        </div>
+        <div class="alignment">
+          <input type="checkbox" id="f298_3" value="Kitten" /> 
+          <label for="f298_3">Kitten</label>
+        </div>
+        <div class="alignment">
+          <input type="checkbox" id="f298_4" value="Adult cat" /> 
+          <label for="f298_4">Adult cat</label>
+        </div>
+        <div class="alignment">
+          <input type="checkbox" id="f298_5" value="Senior cat" /> 
+          <label for="f298_5">Senior cat</label>
+        </div>
+        <div class="alignment">
+          <input type="checkbox" id="f298_6" value="Livestock" /> 
+          <label for="f298_6">Livestock</label>
+        </div>
+        <div class="alignment">
+          <input type="checkbox" id="f298_7" value="Pocket pet" /> 
+          <label for="f298_7">Pocket pet</label>
+        </div>
+      </div>      
 
       <h3 for="f299"> PLEASE NOTE: <span class="required">*</h3>
         <div style="margin: 0%;">
@@ -258,12 +268,12 @@
         </div>
         <div class="alignment">
           <input type="radio" id="f299_0" name="transporttype_299" value="Yes! I understand interstate transport adds $200 onto the adoption cost." required>
-          <label for="f299_0">Yes! I understand interstate transport adds $200 onto the adoption cost.</label>
+          <label style="font-weight: bold;" for="f299_0">Yes! I understand interstate transport adds $200 onto the adoption cost.</label>
         </div>
         
         <div class="alignment">
           <input type="radio" id="f299_1" name="transporttype_299" value="I will come get my baby, so these services will not be needed.">
-          <label for="f299_1">I will come get my baby, so these services will not be needed.</label>
+          <label style="font-weight: bold;" for="f299_1">I will come get my baby, so these services will not be needed.</label>
         </div>
 
       <div class="navigation-buttons">
@@ -324,7 +334,6 @@
       </div>
     </div>
 
-    <!-- <button type="submit">Submit</button> -->
 
     <!-- Hidden Fields -->
     <input type="hidden" name="method" value="online_form_post">
@@ -333,26 +342,30 @@
     <input type="hidden" name="retainfor" value="0">
     <input type="hidden" name="flags" value="Adoption Applicant">
     <input type="hidden" name="formname" value="AMBER TEST 2">
+    <input type="hidden" id="species_list" name="species_298" value="" />
             
   </form>
 
   
   <script>
-    document.getElementById('adoption_form').addEventListener('submit', function(e) {
-      const checkboxes = document.querySelectorAll('#f298 input[type="checkbox"]');
-      const selectedValues = [];
-      
-      checkboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-          selectedValues.push(checkbox.value);
-        }
-      });
 
-      // Combine all selected values into the hidden input field
-      document.getElementById('species_298_combined').value = selectedValues.join(', ');
+    // List of ways to discover pet
+    function updateSpeciesList() {
+    // Collect the selected checkboxes
+    var selectedSpecies = [];
+    var checkboxes = document.querySelectorAll('#f298 input[type="checkbox"]:checked');
+    checkboxes.forEach(function(checkbox) {
+      selectedSpecies.push(checkbox.value);
     });
 
+    // Join the selected species into a single string
+    var speciesList = selectedSpecies.join(', ');
 
+    // Set the joined species list into the hidden input field
+    document.getElementById('species_list').value = speciesList;
+  }
+
+    
     // Tab Navigation Logic
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
