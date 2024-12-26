@@ -1,66 +1,36 @@
 import dash
-from dash import dcc, html
-from dash.dependencies import Input, Output
-import requests
-import re
-import json
+from dash import dcc, html, Input, Output, State
 
-url = "https://us09d.sheltermanager.com/service?method=animal_view_adoptable_js&account=dm1425"
-
-# Function to parse the JavaScript response and extract JSON
-def fetch_animals():
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        # Extract JSON string using regex
-        match = re.search(r"var adoptables = (\[.*?\]);", response.text, re.DOTALL)
-        if match:
-            json_data = match.group(1)  # Extract the JSON array
-            data = json.loads(json_data)  # Parse it into Python objects
-            return data
-        else:
-            print("Could not extract JSON from response.")
-            return []
-    except Exception as e:
-        print(f"Error fetching or parsing data: {e}")
-        return []
-
-# Fetch data for the dropdown
-animal_data = fetch_animals()
-
-# Initialize the app
 app = dash.Dash(__name__)
 
-# Define the layout
 app.layout = html.Div([
-    dcc.Dropdown(id='animal-dropdown', placeholder="Select an animal..."),
-    html.Div(id='selected-animal')
+    dcc.Tabs(id='tabs', value='tab-1', children=[
+        dcc.Tab(label='Tab 1', value='tab-1', children=[
+            dcc.Input(id='input1', placeholder='Required field', type='text')
+        ]),
+        dcc.Tab(label='Tab 2', value='tab-2', children=[
+            dcc.Input(id='input2', placeholder='Required field', type='text')
+        ])
+    ]),
+    html.Button('Submit', id='submit-btn'),
+    html.Div(id='error-msg')
 ])
 
 @app.callback(
-    Output('animal-dropdown', 'options'),
-    Input('animal-dropdown', 'id')  # Trigger on load
+    [Output('tabs', 'value'),
+     Output('error-msg', 'children')],
+    Input('submit-btn', 'n_clicks'),
+    [State('input1', 'value'),
+     State('input2', 'value')]
 )
-def populate_dropdown(_):
-    # Fetch the latest animal data
-    animal_data = fetch_animals()
-    dropdown_options = [
-        {"label": animal.get("ANIMALNAME", "Unknown"), "value": animal.get("ANIMALNAME", "Unknown")}
-        for animal in animal_data
-    ]
-    # print("Dropdown Options:", dropdown_options)  # Debugging
-    return dropdown_options
+def validate_form(n_clicks, input1, input2):
+    if n_clicks:
+        if not input1:
+            return 'tab-1', 'Please complete the required field in Tab 1.'
+        elif not input2:
+            return 'tab-2', 'Please complete the required field in Tab 2.'
+        return dash.no_update, 'Form submitted successfully!'
+    return dash.no_update, dash.no_update
 
-# Callback to display the selected animal
-@app.callback(
-    Output('selected-animal', 'children'),
-    Input('animal-dropdown', 'value')
-)
-def display_selected_animal(selected):
-    if selected:
-        return f"You selected: {selected}"
-    return "No animal selected."
-
-# Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)

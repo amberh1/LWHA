@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption Form</title>
+    <style>
+
+        body {
+            font-family: Oswald, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        /* replaces tabs */
+        .tab-buttons {
+            display: flex;
+            cursor: pointer;
+            margin-bottom: 10px;
+            /* max-width: 1000px; */
+        }
+        .tab-buttons button {
+            /* margin-right: 5px; */
+            /* padding: 10px 15px; */
+            cursor: pointer;
+            background-color: white;
+            color: #e85b93;
+            border: none;
+            font-size: 16px;
+        }
+        .tab-buttons button.active {
+            background-color: white;
+            color: #e85b93;
+            border: none;
+            font-weight: 1000;
+        }
+        .tab-buttons button:hover {
+            background-color: white;
+            color: #ec7ba8;
+            border: none;
+        }
+
+        /* replaces tab content */
+        .tab {
+            display: none;
+        }
+        .tab.active {
+            display: block;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+        /* .form-field {
+            margin-bottom: 15px;
+        } */
+        /* .form-field label {
+            display: block;
+            margin-bottom: 5px;
+        } */
+        /* .form-field input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        } */
+        .form-row {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+        .form-row div {
+            flex: 1;
+            width: 100%;
+        }
+
+        .error {
+            border: 2px solid red;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+        .required {
+            color: red;
+            font-weight: bold;
+        }
+
+
+        h3 {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #e85b93;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ec7ba8;
+        }
+
+        .alignment {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+        }
+
+        .alignment input {
+            margin-top: 15px;
+            width: 5%;
+        }
+
+        .alignment label {
+            width: 100%;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .navigation-buttons .prev {
+            align-self: flex-start;
+            visibility: hidden;
+            width: auto;
+            margin-right: auto;
+        }
+
+        .navigation-buttons .next,
+        .navigation-buttons .submit {
+            align-self: flex-end;
+            width: auto;
+        }
+
+        input[type="submit"] {
+            background-color: #e85b93;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Adoption Form</h1>
+
+    
+
+    <form id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8" onsubmit="updateSpeciesList()">
+        <div class="tab-buttons">
+            <button type="button" class="tab-btn active" data-tab="1">Applicant</button>
+            <button type="button" class="tab-btn" data-tab="2">Environment</button>
+            <button type="button" class="tab-btn" data-tab="3">Ownership</button>
+            <button type="button" class="tab-btn" data-tab="4">Administrative</button>
+            <button type="button" class="tab-btn" data-tab="5">Tab 5</button>
+        </div>
+        <!-- <div class="tab-buttons">
+            <button type="button" class="tab-btn active" data-tab="1">Applicant</button>
+            <button type="button" class="tab-btn" data-tab="2">Home Environment</button>
+            <button type="button" class="tab-btn" data-tab="3">Pet Ownership</button>
+            <button type="button" class="tab-btn" data-tab="4">Administrative</button>
+            <button type="button" class="tab-btn" data-tab="5">Tab 5</button>
+        </div> -->
+
+        <div id="tab-1" class="tab active">
+            <div class="form-row">
+                <div>
+                    <h3 for="f251">First Name <span class="required">*</span></h3>
+                    <input type="Text" id="f251" name="firstname_251" required>
+                    <div class="error-message"></div>
+                </div>
+                <div>
+                    <h3 for="f281">Last Name <span class="required">*</span></h3>
+                    <input type="Text" id="f281" name="lastname_281" required>
+                    <div class="error-message"></div>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <h3 for="f284">Email <span class="required">*</span></h3>
+                <input type="Email" id="f284" name="emailaddress_284" required>
+                <div class="error-message"></div>
+            </div>
+
+            <div class="form-field">
+                <h3 for="f286">Phone <span class="required">*</span></h3>
+                <input type="tel" id="f286" name="mobiletelephone_286" required>
+                <div class="error-message"></div>
+            </div>
+
+            <div class="form-field">
+                <h3 for="f287">If applicable, please provide your Instagram handle:</h3>
+                <input type="text" id="f287" name="instagramhandle_287"></input>
+                <div class="error-message"></div>
+            </div>
+
+            <div class="form-field">
+                <h3 for="f288">Address <span class="required">*</span></h3>
+                <input type="text" id="f288" name="address_288" required></input>
+                <div class="error-message"></div>
+            </div>
+
+            <div>
+                <h3 for="f282">Select the animal you want to adopt: <span class="required">*</span></h3>
+                <select type="Adoptable Animal" id="f282" name="animalname_282" required>
+                    <option value="">Select an animal...</option>
+                </select>
+                <div class="error-message"></div>
+            </div>
+
+
+        </div>
+
+
+        <div id="tab-2" class="tab">
+            <div class="form-field">
+                <label for="field3">Field 3 (Required):</label>
+                <input type="text" id="field3" required>
+                <div class="error-message"></div>
+            </div>
+
+        </div>
+
+
+        <div id="tab-3" class="tab">
+            <div class="form-field">
+                <label for="field5">Field 5 (Required):</label>
+                <input type="text" id="field5" required>
+                <div class="error-message"></div>
+            </div>
+
+        </div>
+
+
+        <div id="tab-4" class="tab">
+            <div class="form-field">
+                <label for="field7">Field 7 (Required):</label>
+                <input type="text" id="field7" required>
+                <div class="error-message"></div>
+            </div>
+
+        </div>
+
+
+        <div id="tab-5" class="tab">
+            <p>Click Submit to complete the form.</p>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const form = document.getElementById('adoption_form');
+
+        function showTab(tabIndex) {
+            tabs.forEach((tab, index) => {
+                tab.classList.toggle('active', index === tabIndex);
+            });
+            tabButtons.forEach((btn, index) => {
+                btn.classList.toggle('active', index === tabIndex);
+            });
+        }
+
+        function validateTab(tabIndex) {
+            const tab = tabs[tabIndex];
+            const inputs = tab.querySelectorAll('input[required], select[required]');
+            let valid = true;
+
+            inputs.forEach(input => {
+                const errorMessage = input.nextElementSibling;
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    errorMessage.textContent = 'This field is required';
+                    valid = false;
+                } else {
+                    input.classList.remove('error');
+                    errorMessage.textContent = '';
+                }
+            });
+
+            return valid;
+        }
+
+        tabButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                if (index === tabs.length - 1) { // Submit tab
+                    for (let i = 0; i < tabs.length - 1; i++) {
+                        if (!validateTab(i)) {
+                            showTab(i);
+                            return;
+                        }
+                    }
+                }
+                showTab(index);
+            });
+        });
+
+        form.addEventListener('submit', (event) => {
+            let allValid = true;
+
+            for (let i = 0; i < tabs.length - 1; i++) {
+                if (!validateTab(i)) {
+                    showTab(i);
+                    allValid = false;
+                    break;
+                }
+            }
+
+            if (!allValid) {
+                event.preventDefault();
+            }
+        });
+
+
+        // Sample Animal Data Fetch
+        async function populateDropdown() {
+        const url = "https://us09d.sheltermanager.com/service?method=animal_view_adoptable_js&account=dm1425";
+        const dropdown = document.getElementById("f282");
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("Failed to fetch animal data.");
+
+            const text = await response.text();
+            const match = text.match(/var adoptables = (\[.*?\]);/s);
+            if (match) {
+            const animals = JSON.parse(match[1]);
+            dropdown.innerHTML = "<option value=''>Select an animal...</option>";
+            animals.forEach(animal => {
+                const option = document.createElement("option");
+                option.value = animal.ANIMALNAME;
+                option.textContent = animal.ANIMALNAME || "Unknown";
+                dropdown.appendChild(option);
+            });
+            } else {
+            throw new Error("Could not parse animal data.");
+            }
+        } catch (error) {
+            console.error(error);
+            dropdown.innerHTML = "<option value=''>No animals available</option>";
+        }
+        }
+        // Initialize Dropdown
+        window.onload = populateDropdown;
+        </script>
+</body>
+</html>
