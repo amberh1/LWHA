@@ -319,19 +319,75 @@
     </div>
 
 
+
+
     <!-- TAB 2: Home Environment -->
     <div id="tab-2" class="tab">
       <!-- Form Fields for Home Environment -->
-      <!-- <h3 for="f300">My home is usually...</h3>
-      <div class="alignment">
-        <input type="radio" id="transport-yes" name="transport" value="Yes! I understand interstate transport adds $200 onto the adoption cost." required>
-        <label for="transport-yes">Yes! I understand interstate transport adds $200 onto the adoption cost.</label>
+      <div class="form-field">
+        <h3 for="f300">My home is usually... <span class="required">*</span></h3>
+        <div id="f300" name="hometype_300" required></div>
+        <div class="error-message"></div>
       </div>
-      
-      <div class="alignment">
-        <input type="radio" id="transport-no" name="transport" value="I will come get my baby, so these services will not be needed.">
-        <label for="transport-no">I will come get my baby, so these services will not be needed.</label>
-      </div> -->
+
+      <div class="form-field">
+        <h3 for="f301">Please list the names and ages of all persons living in your home. <span class="required">*</span></h3>
+        <textarea  style="height: 150px; resize: none;" type="text" id="f301" name="personshome_301"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f302">Please list all spayed/neutered pets living in your home including their name, age, gender, and breed. <span class="required">*</span></h3>
+        <textarea  style="height: 150px; resize: none;" type="text" id="f302" name="petsneutered_302"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f303">Please list all intact (have NOT been spayed or neutered) animals living in your home including their name, age, gender, and breed. Additionally, please explain why these pets are not currently spayed/neutered. <span class="required">*</span></h3>
+        <textarea  style="height: 150px; resize: none;" type="text" id="f303" name="petsintact_303"></textarea>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f305">Please discuss why you no longer have your last two pets. This question is VERY important, so please use detail. <span class="required">*</span></h3>
+        <textarea  style="height: 150px; resize: none;" type="text" id="f305" name="previouspets_305"></textarea>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f306">Have you ever surrendered a pet to a shelter? If so, what was the reason? <span class="required">*</span></h3>
+        <textarea  style="height: 150px; resize: none;" type="text" id="f306" name="surrenderedpet_306"></textarea>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f307">How long will your dog or cat be left alone during the day/night? <span class="required">*</span></h3>
+        <textarea  style="height: 150px; resize: none;" type="text" id="f307" name="alonetime_307"></textarea>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f308">Do you have a "doggie door" where the dog or cat can go in and out at their own discretion? <span class="required">*</span></h3>
+        <textarea  style="height: 150px; resize: none;" type="text" id="f308" name="dogdoor_308"></textarea>
+      </div>
+
+
+      <div class="form-field">
+        <h3 for="f308">Do you have a "doggie door" where the dog or cat can go in and out at their own discretion? <span class="required">*</span></h3>
+        <select id="f308" name="dogdoor_308" required="required">
+          <option value="" disabled selected>Select an option...</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+        <div class="error-message"></div>
+      </div>
+
+
+      <div class="form-field">
+        <h3 for="f301">Please list the names and ages of all persons living in your home. <span class="required">*</span></h3>
+        <textarea  style="height: 150px; resize: none;" type="text" id="f301" name="personshome_301"></textarea>
+      </div>
+
+
+
+
+
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
         <button type="button" class="next">Next</button>
@@ -384,38 +440,22 @@
 
   
   <script>
-
-    // List of ways to discover pet
-    function updateSpeciesList() {
-    // Collect the selected checkboxes
-    var selectedSpecies = [];
-    var checkboxes = document.querySelectorAll('#f298 input[type="checkbox"]:checked');
-    checkboxes.forEach(function(checkbox) {
-      selectedSpecies.push(checkbox.value);
-    });
-
-    // Join the selected species into a single string
-    var speciesList = selectedSpecies.join(', ');
-
-    // Set the joined species list into the hidden input field
-    document.getElementById('species_list').value = speciesList;
-    }
-
     
     // Tab Navigation Logic
     const tabs = document.querySelectorAll('.tab');
     const tabButtons = document.querySelectorAll('.tab-btn');
     const form = document.getElementById('adoption_form');
+    const prevButtons = document.querySelectorAll('.prev');
+    const nextButtons = document.querySelectorAll('.next');
 
     function showTab(tabIndex) {
-        tabs.forEach((tab, index) => {
-            tab.classList.toggle('active', index === tabIndex);
-        });
-        tabButtons.forEach((btn, index) => {
-            btn.classList.toggle('active', index === tabIndex);
-        });
+      tabs.forEach((tab, index) => {
+        tab.classList.toggle('active', index === tabIndex);
+      });
+      tabButtons.forEach((btn, index) => {
+        btn.classList.toggle('active', index === tabIndex);
+      });
     }
-
 
     function validateTab(tabIndex) {
       const tab = tabs[tabIndex];
@@ -508,38 +548,35 @@
       return valid;
     }
 
-
-
     tabButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            if (index === tabs.length - 1) { // Submit tab
-                for (let i = 0; i < tabs.length - 1; i++) {
-                    if (!validateTab(i)) {
-                        showTab(i);
-                        return;
-                    }
-                }
+      button.addEventListener('click', () => {
+        if (index === tabs.length - 1) { // Submit tab
+          for (let i = 0; i < tabs.length - 1; i++) {
+            if (!validateTab(i)) {
+              showTab(i);
+              return;
             }
-            showTab(index);
-        });
+          }
+        }
+        showTab(index);
+      });
     });
 
     form.addEventListener('submit', (event) => {
-        let allValid = true;
+      let allValid = true;
 
-        for (let i = 0; i < tabs.length - 1; i++) {
-            if (!validateTab(i)) {
-                showTab(i);
-                allValid = false;
-                break;
-            }
+      for (let i = 0; i < tabs.length - 1; i++) {
+        if (!validateTab(i)) {
+          showTab(i);
+          allValid = false;
+          break;
         }
+      }
 
-        if (!allValid) {
-            event.preventDefault();
-        }
+      if (!allValid) {
+        event.preventDefault();
+      }
     });
-
 
 
     // List of U.S. States
@@ -594,7 +631,7 @@
     // Initialize Dropdown
     window.onload = populateDropdown;
 
-    
+
     // List of ways to discover pet
     const pet_discovery = [
       { id: "f297_0", value: "News: KBTX" },
@@ -629,6 +666,7 @@
       const label = document.createElement("label");
       label.setAttribute("for", option.id);
       label.textContent = option.value;
+      label.style.fontWeight = "bold"; 
 
       div.appendChild(input);
       div.appendChild(label);
@@ -647,9 +685,7 @@
       { id: "f298_6", value: "Livestock" },
       { id: "f298_7", value: "Pocket pet" }
     ];
-
     const speciesContainer = document.getElementById("f298");
-
     // Generate the checkboxes dynamically
     speciesOptions.forEach(option => {
       const div = document.createElement("div");
@@ -664,12 +700,12 @@
       const label = document.createElement("label");
       label.setAttribute("for", option.id);
       label.textContent = option.value;
+      label.style.fontWeight = "bold"; 
 
       div.appendChild(input);
       div.appendChild(label);
       speciesContainer.appendChild(div);
     });
-
     // Function to update the hidden input with selected checkboxes
     function updateSpeciesList() {
       const selectedSpecies = [];
@@ -682,6 +718,36 @@
       document.getElementById('species_list').value = selectedSpecies.join(', ');
     }
 
+
+    // List of ways to discover pet
+    const home_env = [
+      { id: "f300_0", value: "Very quiet and laid back" },
+      { id: "f300_1", value: "Very busy with lots of visitors" },
+      { id: "f300_2", value: "Mostly busy with bits of down time" },
+      { id: "f300_3", value: "Mostly calm with occasional visitors" }
+    ];
+    const home_env_element = document.getElementById("f300");
+    // Generate the discovery options
+    home_env.forEach(option => {
+      const div = document.createElement("div");
+      div.classList.add("alignment");
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.id = option.id;
+      input.name = "hometype_300";
+      input.value = option.value;
+      input.required = true;
+
+      const label = document.createElement("label");
+      label.setAttribute("for", option.id);
+      label.textContent = option.value;
+      label.style.fontWeight = "bold"; 
+
+      div.appendChild(input);
+      div.appendChild(label);
+      home_env_element.appendChild(div);
+    });
 
   </script>
 </body>
