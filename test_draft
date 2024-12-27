@@ -39,11 +39,11 @@
     } */
 
     /* Initially hide all sections except the first one */
-    .tab-content {
+    .tab-btn {
       display: none;
     }
 
-    .tab-content.active {
+    .tab-btn.active {
       display: block;
     }
 
@@ -161,7 +161,7 @@
 
   <form id="adoption_form">
     <!-- TAB 1: Applicant -->
-    <div id="applicant" class="tab-content active">
+    <div id="applicant" class="tab-btn active">
         <div class="form-row">
           <div>
               <h3 for="firstname">First Name <span class="required">*</span></h3>
@@ -289,9 +289,113 @@
 
     
     <!-- TAB 2: Home Environment -->
-    <div id="home-environment" class="tab-content">
+    <div id="home-environment" class="tab-btn">
       <!-- Form Fields for Home Environment -->
-      <!-- Add other form fields here -->
+      <div class="form-field">
+        <h3 for="f300">My home is usually... <span class="required">*</span></h3>
+        <div id="f300" name="hometype_300" required></div>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f301">Please list the names and ages of all persons living in your home. <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f301" name="personshome_301"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f302">Please list all spayed/neutered pets living in your home including their name, age, gender, and breed. <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f302" name="petsneutered_302"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f303">Please list all intact (have NOT been spayed or neutered) animals living in your home including their name, age, gender, and breed. Additionally, please explain why these pets are not currently spayed/neutered. <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f303" name="petsintact_303"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f305">Please discuss why you no longer have your last two pets. This question is VERY important, so please use detail. <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f305" name="previouspets_305"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f306">Have you ever surrendered a pet to a shelter? If so, what was the reason? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f306" name="surrenderedpet_306"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f307">How long will your dog or cat be left alone during the day/night? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f307" name="alonetime_307"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f308">Do you have a "doggie door" where the dog or cat can go in and out at their own discretion? <span class="required">*</span></h3>
+        <select id="f308" name="dogdoor_308" required="required">
+          <option value="" disabled selected>Select an option...</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f309">Where will this pet primarily live? <span class="required">*</span></h3>
+        <div id="f309" name="reside_309" required></div>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f310">Please elaborate, IN DETAIL, on your previous answer. This question is VERY important for us know if your home dynamic is what this particular pet would do best in, so please use detail! <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f310" name="resideelaborate_310"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f311">Where will this pet sleep at night? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f311" name="sleep_311"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f312">Do you plan to kennel train your pet? <span class="required">*</span></h3>
+        <div id="f312" name="kenneltrain_312" required></div>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f313">You may get a pet that requires house training. Have you ever done this before? If so, which method did you use? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f313" name="housetrain_313"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f314">	What will you do if your pet has an accident in the home (vomits, potties, etc.)? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f314" name="petaccident_314"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f315">What type of fencing do you have? <span class="required">*</span></h3>
+        <div id="f315" name="fencing_315" required></div>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f316">	Please describe how secure your fencing is to contain a small animal. <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f316" name="fencingsecure_316"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f317">	How will you exercise your dog or cat? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f317" name="exercise_317"></textarea>
+        <div class="error-message"></div>
+      </div>
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
         <button type="button" class="next">Next</button>
@@ -300,7 +404,7 @@
 
 
     <!-- TAB 3: Pet Ownership -->
-    <div id="pet-ownership" class="tab-content">
+    <div id="pet-ownership" class="tab-btn">
       <!-- Form Fields for Pet Ownership -->
       <!-- Add other form fields here -->
       <div class="navigation-buttons">
@@ -311,7 +415,7 @@
 
 
     <!-- TAB 4: Administrative -->
-    <div id="administrative" class="tab-content">
+    <div id="administrative" class="tab-btn">
       <!-- Form Fields for Administrative -->
       <!-- Add other form fields here -->
       <div class="navigation-buttons">
@@ -322,7 +426,7 @@
 
     
     <!-- TAB: 5 Submit -->
-    <div id="submit" class="tab-content">
+    <div id="submit" class="tab-btn">
       <div id="form-message" class="error"></div>
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
@@ -337,7 +441,7 @@
 
     // Tab Navigation Logic
     const tabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const tabButtons = document.querySelectorAll('.tab-btn');
     const prevButtons = document.querySelectorAll('.prev');
     const nextButtons = document.querySelectorAll('.next');
 
@@ -348,7 +452,7 @@
       tabs.forEach((tab, index) => {
         tab.classList.toggle('active', index === currentTab);
       });
-      tabContents.forEach((content, index) => {
+      tabButtons.forEach((content, index) => {
         content.classList.toggle('active', index === currentTab);
       });
 

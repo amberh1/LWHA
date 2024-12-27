@@ -176,7 +176,7 @@
       <button type="button" class="tab-btn" data-tab="2">Environment</button>
       <button type="button" class="tab-btn" data-tab="3">Ownership</button>
       <button type="button" class="tab-btn" data-tab="4">Administrative</button>
-      <button type="button" class="tab-btn" data-tab="5">Tab 5</button>
+      <button type="button" class="tab-btn" data-tab="5">Submit</button>
     </div>
     <!-- User Input Fields -->
     <div id="tab-1" class="tab active">
@@ -463,7 +463,7 @@
     
     <!-- TAB: 5 Submit -->
     <div id="tab-5" class="tab">
-      <div id="form-message" class="error"></div>
+      <!-- <div id="form-message" class="error"></div> -->
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
         <button type="submit" class="submit">Submit</button>
@@ -489,16 +489,70 @@
     const tabs = document.querySelectorAll('.tab');
     const tabButtons = document.querySelectorAll('.tab-btn');
     const form = document.getElementById('adoption_form');
+    const prevButtons = document.querySelectorAll('.prev');
+    const nextButtons = document.querySelectorAll('.next');
+    const submitButton = document.querySelector('.submit');
+    let currentTabIndex = 0;
 
+    // Function to display the correct tab
     function showTab(tabIndex) {
         tabs.forEach((tab, index) => {
-            tab.classList.toggle('active', index === tabIndex);
+            tab.classList.toggle('active', index === tabIndex); // Show current tab
         });
-        tabButtons.forEach((btn, index) => {
-            btn.classList.toggle('active', index === tabIndex);
+
+        tabButtons.forEach((button, index) => {
+            button.classList.toggle('active', index === tabIndex); // Highlight active tab button
         });
+
+        currentTabIndex = tabIndex;
+        updateNavigationButtons();
+
+        // Focus the first input or element of the current tab (if available)
+        const firstInput = tabs[tabIndex].querySelector('input, select, textarea');
+        if (firstInput) {
+            firstInput.focus();
+        }
     }
 
+
+    // Function to update button states
+    function updateNavigationButtons() {
+        // Show or hide the "Next" and "Submit" buttons
+        prevButtons.forEach(button => (button.style.visibility = currentTabIndex === 0 ? 'hidden' : 'visible'));
+        nextButtons.forEach(button => (button.style.visibility = currentTabIndex === tabs.length - 1 ? 'hidden' : 'visible'));
+
+        if (submitButton) {
+            submitButton.style.display = currentTabIndex === tabs.length - 1 ? 'inline-block' : 'none';
+        }
+    }
+
+    // Event listeners for navigation buttons
+    prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (currentTabIndex > 0) showTab(currentTabIndex - 1);
+        });
+    });
+
+    nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (currentTabIndex < tabs.length - 1) showTab(currentTabIndex + 1);
+        });
+    });
+
+    // Event listeners for tab buttons (top navigation)
+    tabButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            showTab(index);
+        });
+    });
+
+    // Initialize tabs and buttons on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        showTab(0); // Start with the first tab
+        updateNavigationButtons();
+    });
+
+    // Validation logic
     function validateField(input) {
         const errorMessage = input.nextElementSibling;
 
@@ -624,20 +678,26 @@
         });
     }
 
-    tabButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            if (index === tabs.length - 1) { // Submit tab
-                for (let i = 0; i < tabs.length - 1; i++) {
-                    if (!validateTab(i)) {
-                        showTab(i);
-                        return;
-                    }
+    // When Submit button is clicked, check for missing information
+    if (submitButton) {
+        submitButton.addEventListener('click', () => {
+            let allValid = true;
+
+            for (let i = 0; i < tabs.length - 1; i++) { // Check all tabs except the last one (tab 5)
+                if (!validateTab(i)) {
+                    showTab(i); // Navigate to the first invalid tab
+                    allValid = false;
+                    break;
                 }
             }
-            showTab(index);
-        });
-    });
 
+            if (allValid) {
+                form.submit(); // Submit the form if all tabs are valid
+            }
+        });
+    }
+
+    // Form submission logic
     form.addEventListener('submit', (event) => {
         let allValid = true;
 
