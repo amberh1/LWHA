@@ -97,6 +97,11 @@
         margin-bottom: 5px;
         font-weight: bold;
       }
+      h4 {
+        display: block;
+        margin: 5px;
+        /* font-weight: bold; */
+      }
 
       input, select, textarea, button {
         width: 100%;
@@ -169,7 +174,7 @@
 
   
 
-  <form id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8" onsubmit="updateSpeciesList()">
+  <form novalidate id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8" onsubmit="updateSpeciesList()">
     <!-- Tab Navigation -->
     <div class="tab-buttons">
       <button type="button" class="tab-btn active" data-tab="1">Applicant</button>
@@ -296,7 +301,7 @@
       </div>
 
       <div class="form-field">
-        <h3 for="f299"> PLEASE NOTE: <span class="required">*</h3>
+        <h3 for="f299">PLEASE NOTE: <span class="required">*</h3>
         <div style="margin: 0%;">
           Yes, we offer transport anywhere in the United States by ground or plane. We are happy to help coach our families through the transport process, but unfortunately, these fees cannot be waived or reduced as they are set by third parties. Transportation is $200 for one dog, or $150 each for multiple dogs.
         </div>
@@ -310,7 +315,6 @@
         </div>
         <div class="error-message"></div>
       </div>
-
 
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
@@ -407,7 +411,7 @@
       </div>
 
       <div class="form-field">
-        <h3 for="f314">	What will you do if your pet has an accident in the home (vomits, potties, etc.)? <span class="required">*</span></h3>
+        <h3 for="f314">What will you do if your pet has an accident in the home (vomits, potties, etc.)? <span class="required">*</span></h3>
         <textarea required style="height: 150px; resize: none;" type="text" id="f314" name="petaccident_314"></textarea>
         <div class="error-message"></div>
       </div>
@@ -419,18 +423,16 @@
       </div>
 
       <div class="form-field">
-        <h3 for="f316">	Please describe how secure your fencing is to contain a small animal. <span class="required">*</span></h3>
+        <h3 for="f316">Please describe how secure your fencing is to contain a small animal. <span class="required">*</span></h3>
         <textarea required style="height: 150px; resize: none;" type="text" id="f316" name="fencingsecure_316"></textarea>
         <div class="error-message"></div>
       </div>
 
       <div class="form-field">
-        <h3 for="f317">	How will you exercise your dog or cat? <span class="required">*</span></h3>
+        <h3 for="f317">How will you exercise your dog or cat? <span class="required">*</span></h3>
         <textarea required style="height: 150px; resize: none;" type="text" id="f317" name="exercise_317"></textarea>
         <div class="error-message"></div>
       </div>
-
-
 
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
@@ -441,8 +443,54 @@
 
     <!-- TAB 3: Pet Ownership -->
     <div id="tab-3" class="tab">
-      <!-- Form Fields for Pet Ownership -->
-      <!-- Add other form fields here -->
+      <div class="form-field">
+        <h3 for="f318">What brand/type of pet food do you feed your current pet(s)? <span class="required">*</span></h3>
+        <input type="text" id="f318" name="food_318" required>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f319">What brand/type of treats/chews do you give your current pet(s)? <span class="required">*</span></h3>
+        <input type="text" id="f319" name="treats_319" required>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f320">I need a dog or cat who gets along with... <span class="required">*</span></h3>
+        <div id="f320" data-name="goodwith_320" data-required="required"></div>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f321">What is your plan for your pet if you have a major life change such as dying, getting divorced, getting deployed, or going away/home for school? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f321" name="petplan_321"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f322">What energy level are you looking for in your pet? <span class="required">*</span></h3>
+        <input type="text" id="f322" name="energylevel_322" required>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f323">Please describe examples of how an animal at that energy level would behave. What things would they most often be doing? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f323" name="energyexamples_323"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f324">What types of activities will you enjoy with your new pet? How do you imagine your time being spent together? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f324" name="activities_324"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f325">What else are you looking for in a dog or cat that you'd like us to know? <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f325" name="preferences_325"></textarea>
+        <div class="error-message"></div>
+      </div>
+
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
         <button type="button" class="next">Next</button>
@@ -452,8 +500,59 @@
 
     <!-- TAB 4: Administrative -->
     <div id="tab-4" class="tab">
-      <!-- Form Fields for Administrative -->
-      <!-- Add other form fields here -->
+      <div class="form-field">
+        <h3 for="f327">How did you find out about Long Way Home Adoptables? <span class="required">*</span></h3>
+        <input type="text" id="f327" name="lwhadiscovery_327" required>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f328">Long Way Home Adoptables *strongly* disagrees with cosmetic surgeries such as ear cropping, tail docking, and declawing. We will not provide this unnecessary surgery for you, and we require that you consult with us before considering it for your adopted dog. It is our view that these surgeries are unnecessary, often leave behind nerve damage, and put the pet at undue risk of anesthesia. Do you agree to this requirement? <span class="required">*</span></h3>
+        <div id="f328" name="cosmeticagreement_328" required></div>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f329">Do you feel it is appropriate to leave a child unsupervised with a dog? <span class="required">*</span></h3>
+        <div id="f329" name="unsupervised_329" required></div>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f330">If you chose "It depends" for the previous question, please take this opportunity to elaborate in detail. </h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f330" name="unsupervisedelaborate_330"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div class="form-field">
+        <h3 for="f331">What did we miss? Please tell us, in as much detail as you'd like, anything else you'd like us to know as we consider your application. This is your opportunity to include anything you feel might be important for us to know regarding you, your pets, your home, or why you feel like you are the best home for this pet. <span class="required">*</span></h3>
+        <textarea required style="height: 150px; resize: none;" type="text" id="f331" name="extrainfo_331"></textarea>
+        <div class="error-message"></div>
+      </div>
+
+      <div>
+        <h3 for="f327">References <span class="required">*</span></h3>
+        <div style="margin: 0%;">
+          Must be able to speak to your ability and capability to care for our pet.
+        </div>
+        <div class="form-field">
+          <h4 for="f332">Reference 1: Name & Phone Number <span class="required">*</span></h4>
+          <input type="Text" id="f332" name="reference1_332" required>
+          <div class="error-message"></div>
+        </div>
+        <div class="form-field">
+          <h4 for="f333">Reference 2: Name & Phone Number <span class="required">*</span></h4>
+          <input type="Text" id="f333" name="reference2_333" required>
+          <div class="error-message"></div>
+        </div>
+      </div>
+      
+      <div class="form-field">
+        <h3 for="f334">Current veterinarian and clinic phone number <span class="required">*</span></h3>
+        <input type="text" id="f334" name="vet_334" required>
+        <div class="error-message"></div>
+      </div>
+      
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
         <button type="button" class="next">Next</button>
@@ -463,7 +562,21 @@
     
     <!-- TAB: 5 Submit -->
     <div id="tab-5" class="tab">
-      <!-- <div id="form-message" class="error"></div> -->
+      <div class="form-field">
+        <h3 for="f336">Terms and Conditions: <span class="required">*</h3>
+        <div style="margin: 0%;">
+          It can take us up to a week to contact all your references and process your application. Additionally, our pets often have MANY applications on them. We do not employ a first come first served approach, so filtering through all the applications to choose the best home can take time. We will do our best to respond to every applicant, but there are only so many hours in a day that we can volunteer. If your home is chosen, we will contact you directly. If you do not hear from us, please know that it is not a reflection of you or your home, but rather, our ability to handle the overwhelming interest some pets in our program receive.
+        </div>
+        <div style="margin-top: 10px;">
+          Please keep in mind that our foster families are all volunteers, with full time jobs and family obligations. As much as we want to be able to respond the same day, that likely will not happen. Once you submit your application, the system will email you a copy and our staff will review it.
+        </div>
+        <div class="alignment">
+          <input type="radio" id="f336_0" name="agreement0_336" value="Yes! I understand interstate transport adds $200 onto the adoption cost." required>
+          <label style="font-weight: bold;" for="f336_0">I have read and understand the Terms and Conditions.</label>
+        </div>
+        <div class="error-message"></div>
+      </div>
+      
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
         <button type="submit" class="submit">Submit</button>
@@ -479,6 +592,7 @@
     <input type="hidden" name="flags" value="Adoption Applicant">
     <input type="hidden" name="formname" value="AMBER TEST 2">
     <input type="hidden" id="species_list" name="species_298" value="" />
+    <input type="hidden" id="goodwith_list" name="goodwith_320" value="" />
             
   </form>
 
@@ -554,46 +668,51 @@
 
     // Validation logic
     function validateField(input) {
-        const errorMessage = input.nextElementSibling;
+    const errorMessage = input.nextElementSibling;
 
-        if (input.type === "text" || input.tagName === "TEXTAREA" || input.tagName === "SELECT") {
-            if (!input.value.trim()) {
-                input.classList.add('error');
-                errorMessage.textContent = 'This field is required';
-                return false;
-            } else {
-                input.classList.remove('error');
-                errorMessage.textContent = '';
-                return true;
-            }
-        }
-
-        if (input.type === "email") {
-            if (!input.value.trim() || !input.checkValidity()) {
-                input.classList.add('error');
-                errorMessage.textContent = 'Please provide a valid email address';
-                return false;
-            } else {
-                input.classList.remove('error');
-                errorMessage.textContent = '';
-                return true;
-            }
-        }
-
-        if (input.type === "number") {
-            if (!input.value.trim() || isNaN(input.value)) {
-                input.classList.add('error');
-                errorMessage.textContent = 'Please enter a valid number';
-                return false;
-            } else {
-                input.classList.remove('error');
-                errorMessage.textContent = '';
-                return true;
-            }
-        }
-
+    if (!errorMessage) {
+        console.warn(`No error message element found for input: ${input.name || input.id}`);
         return true;
     }
+
+    if (input.type === "text" || input.tagName === "TEXTAREA" || input.tagName === "SELECT") {
+        if (!input.value.trim()) {
+            input.classList.add('error');
+            errorMessage.textContent = 'This field is required';
+            return false;
+        } else {
+            input.classList.remove('error');
+            errorMessage.textContent = '';
+            return true;
+        }
+    }
+
+    if (input.type === "email") {
+        if (!input.value.trim() || !input.checkValidity()) {
+            input.classList.add('error');
+            errorMessage.textContent = 'Please provide a valid email address';
+            return false;
+        } else {
+            input.classList.remove('error');
+            errorMessage.textContent = '';
+            return true;
+        }
+    }
+
+    if (input.type === "number") {
+        if (!input.value.trim() || isNaN(input.value)) {
+            input.classList.add('error');
+            errorMessage.textContent = 'Please enter a valid number';
+            return false;
+        } else {
+            input.classList.remove('error');
+            errorMessage.textContent = '';
+            return true;
+        }
+    }
+
+    return true;
+}
 
     function validateCheckboxGroup(group) {
         const checkboxes = group.querySelectorAll('input[type="checkbox"]');
@@ -612,44 +731,63 @@
     }
 
     function validateRadioGroup(tab, name) {
-        const radios = tab.querySelectorAll(`input[name="${name}"]`);
-        const errorMessage = radios[0]?.closest('.form-field')?.querySelector('.error-message');
-        const isChecked = Array.from(radios).some(radio => radio.checked);
+    const radios = tab.querySelectorAll(`input[name="${name}"]`);
+    const errorMessage = radios[0]?.closest('.form-field')?.querySelector('.error-message');
+    const isChecked = Array.from(radios).some(radio => radio.checked);
 
-        if (!isChecked) {
-            radios.forEach(radio => radio.classList.add('error'));
-            if (errorMessage) errorMessage.textContent = 'Please select an option';
-            return false;
-        } else {
-            radios.forEach(radio => radio.classList.remove('error'));
-            if (errorMessage) errorMessage.textContent = '';
-            return true;
+    if (!isChecked) {
+        radios.forEach(radio => radio.classList.add('error'));
+        if (errorMessage) errorMessage.textContent = 'Please select an option';
+        return false;
+    } else {
+        radios.forEach(radio => radio.classList.remove('error'));
+        if (errorMessage) errorMessage.textContent = '';
+        return true;
+    }
+}
+
+function validateTab(tabIndex) {
+    const tab = tabs[tabIndex];
+    const requiredInputs = tab.querySelectorAll('input[required], select[required], textarea[required]');
+    let valid = true;
+    let firstInvalidElement = null;
+
+    requiredInputs.forEach(input => {
+        const isFieldValid = validateField(input);
+        if (!isFieldValid && !firstInvalidElement) {
+            firstInvalidElement = input;
         }
+        valid = valid && isFieldValid;
+    });
+
+    // Validate checkbox groups within the tab
+    const checkboxGroups = tab.querySelectorAll('[data-required="required"]');
+    checkboxGroups.forEach(group => {
+        const isGroupValid = validateCheckboxGroup(group);
+        if (!isGroupValid && !firstInvalidElement) {
+            firstInvalidElement = group; // If a checkbox group is invalid, focus on the group
+        }
+        valid = valid && isGroupValid;
+    });
+
+    const radioGroups = tab.querySelectorAll('input[type="radio"][required]');
+    const radioNames = new Set();
+    radioGroups.forEach(radio => radioNames.add(radio.name));
+    radioNames.forEach(name => {
+        const isRadioValid = validateRadioGroup(tab, name);
+        if (!isRadioValid && !firstInvalidElement) {
+            firstInvalidElement = tab.querySelector(`input[name="${name}"]`);
+        }
+        valid = valid && isRadioValid;
+    });
+
+    // Smooth scroll and focus the first invalid element
+    if (!valid && firstInvalidElement) {
+        smoothScrollToElement(firstInvalidElement);
     }
 
-    function validateTab(tabIndex) {
-        const tab = tabs[tabIndex];
-        const requiredInputs = tab.querySelectorAll('input[required], select[required], textarea[required]');
-        let valid = true;
-
-        requiredInputs.forEach(input => {
-            if (!validateField(input)) valid = false;
-        });
-
-        const checkboxGroups = tab.querySelectorAll('[data-required="required"]');
-        checkboxGroups.forEach(group => {
-            if (!validateCheckboxGroup(group)) valid = false;
-        });
-
-        const radioGroups = tab.querySelectorAll('input[type="radio"][required]');
-        const radioNames = new Set();
-        radioGroups.forEach(radio => radioNames.add(radio.name));
-        radioNames.forEach(name => {
-            if (!validateRadioGroup(tab, name)) valid = false;
-        });
-
-        return valid;
-    }
+    return valid;
+}
 
     function attachDynamicValidation() {
         const allInputs = document.querySelectorAll('input[required], select[required], textarea[required]');
@@ -697,22 +835,30 @@
         });
     }
 
-    // Form submission logic
-    form.addEventListener('submit', (event) => {
-        let allValid = true;
+// Smooth scrolling and focus helper
+function smoothScrollToElement(element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => {
+        element.focus({ preventScroll: true });
+    }, 300); // Delay to ensure scroll finishes before focusing
+}
 
-        for (let i = 0; i < tabs.length - 1; i++) {
-            if (!validateTab(i)) {
-                showTab(i);
-                allValid = false;
-                break;
-            }
-        }
+// Form submission logic
+form.addEventListener('submit', (event) => {
+    let allValid = true;
 
-        if (!allValid) {
-            event.preventDefault();
+    for (let i = 0; i < tabs.length; i++) {
+        if (!validateTab(i)) {
+            showTab(i); // Navigate to the invalid tab
+            allValid = false;
+            break;
         }
-    });
+    }
+
+    if (!allValid) {
+        event.preventDefault();
+    }
+});
 
     attachDynamicValidation();
 
@@ -939,7 +1085,7 @@
     });
 
     
-    // Where will this pet primarily live
+    // Do you plan to kennel train your pet?
     const kennel_options = [
       { id: "f312_0", value: "Yes" },
       { id: "f312_1", value: "No" },
@@ -975,7 +1121,7 @@
     });
 
 
-    // Where will this pet primarily live
+    // What type of fencing do you have?
     const fencing = [
       { id: "f315_0", value: "None" },
       { id: "f315_1", value: "Wrought Iron" },
@@ -1012,6 +1158,123 @@
       div.appendChild(label);
       fencing_element.appendChild(div);
     });
+
+
+    // List of pet species options
+    const goodwith_options = [
+      { id: "f320_0", value: "Dogs" },
+      { id: "f320_1", value: "Cats" },
+      { id: "f320_2", value: "Children" },
+      { id: "f320_3", value: "Adults" },
+      { id: "f320_4", value: "Senior Citizens" },
+      { id: "f320_5", value: "Livestock" },
+    ];
+    const goodwith_container = document.getElementById("f320");
+    // Generate the checkboxes dynamically
+    goodwith_options.forEach(option => {
+      const div = document.createElement("div");
+      div.classList.add("alignment");
+
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.id = option.id;
+      input.value = option.value;
+      
+      // Add dynamic validation listener
+      input.addEventListener("change", () => {
+        validateCheckboxGroup(goodwith_container);
+      });
+
+      const label = document.createElement("label");
+      label.setAttribute("for", option.id);
+      label.textContent = option.value;
+      label.style.fontWeight = "bold"; 
+
+      div.appendChild(input);
+      div.appendChild(label);
+      goodwith_container.appendChild(div);
+    });
+    // Function to update the hidden input with selected checkboxes
+    function updateSpeciesList() {
+      const selectedSpecies = [];
+      const checkboxes = document.querySelectorAll('#f320 input[type="checkbox"]:checked');
+      checkboxes.forEach(checkbox => {
+        selectedSpecies.push(checkbox.value);
+      });
+
+      // Join the selected species into a single string
+      document.getElementById('goodwith_list').value = selectedSpecies.join(', ');
+    }
+
+
+    // Cosmetic Surgery Agreement
+    const surgery_options = [
+      { id: "f328_0", value: "Yes, I completely agree." },
+      { id: "f328_1", value: "No, once I adopt this pet, what I do with it is my choice." },
+      { id: "f328_2", value: "No, I think some cosmetic or behavior modifying surgeries are okay sometimes." },
+    ];
+    const surgery_options_element = document.getElementById("f328");
+    surgery_options.forEach(option => {
+      const div = document.createElement("div");
+      div.classList.add("alignment");
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.id = option.id;
+      input.name = "cosmeticagreement_328";
+      input.value = option.value;
+      input.required = true;
+      
+      // Add dynamic validation listener
+      input.addEventListener("change", () => {
+        validateRadioGroup(document.querySelector('.tab.active'), input.name);
+      });
+
+      const label = document.createElement("label");
+      label.setAttribute("for", option.id);
+      label.textContent = option.value;
+      label.style.fontWeight = "bold"; 
+
+      div.appendChild(input);
+      div.appendChild(label);
+      surgery_options_element.appendChild(div);
+    });
+
+    
+    // child unsupervised with a dog
+    const unsupervised_options = [
+      { id: "f329_0", value: "Yes" },
+      { id: "f329_1", value: "No" },
+      { id: "f329_2", value: "It depends" },
+      { id: "f329_3", value: "I'm adopting a cat." },
+    ];
+    const unsupervised_options_element = document.getElementById("f329");
+    unsupervised_options.forEach(option => {
+      const div = document.createElement("div");
+      div.classList.add("alignment");
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.id = option.id;
+      input.name = "unsupervised_329";
+      input.value = option.value;
+      input.required = true;
+      
+      // Add dynamic validation listener
+      input.addEventListener("change", () => {
+        validateRadioGroup(document.querySelector('.tab.active'), input.name);
+      });
+
+      const label = document.createElement("label");
+      label.setAttribute("for", option.id);
+      label.textContent = option.value;
+      label.style.fontWeight = "bold"; 
+
+      div.appendChild(input);
+      div.appendChild(label);
+      unsupervised_options_element.appendChild(div);
+    });
+
   </script>
 </body>
 </html>
