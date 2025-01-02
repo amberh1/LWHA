@@ -51,6 +51,7 @@
       form {
         max-width: 600px;
         margin: auto;
+        background-color: #f9f9f9;
       }
 
       .form-row {
@@ -174,7 +175,7 @@
 
   
 
-  <form novalidate id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8" onsubmit="updateSpeciesList()">
+  <form novalidate id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8">
     <!-- Tab Navigation -->
     <div class="tab-buttons">
       <button type="button" class="tab-btn active" data-tab="1">Applicant</button>
@@ -206,7 +207,7 @@
 
       <div class="form-field">
         <h3 for="f286">Phone <span class="required">*</span></h3>
-        <input type="number" id="f286" name="mobiletelephone_286" required>
+        <input type="text" id="f286" name="mobiletelephone_286" required>
         <div class="error-message"></div>
       </div>
 
@@ -552,7 +553,7 @@
         <input type="text" id="f334" name="vet_334" required>
         <div class="error-message"></div>
       </div>
-      
+     
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
         <button type="button" class="next">Next</button>
@@ -571,11 +572,11 @@
           Please keep in mind that our foster families are all volunteers, with full time jobs and family obligations. As much as we want to be able to respond the same day, that likely will not happen. Once you submit your application, the system will email you a copy and our staff will review it.
         </div>
         <div class="alignment">
-          <input type="radio" id="f336_0" name="agreement0_336" value="Yes! I understand interstate transport adds $200 onto the adoption cost." required>
+          <input type="radio" id="f336_0" name="agreement0_336" value="I have read and understand the Terms and Conditions." required>
           <label style="font-weight: bold;" for="f336_0">I have read and understand the Terms and Conditions.</label>
         </div>
         <div class="error-message"></div>
-      </div>
+      </div> 
       
       <div class="navigation-buttons">
         <button type="button" class="prev">Previous</button>
@@ -748,37 +749,39 @@
 
 function validateTab(tabIndex) {
     const tab = tabs[tabIndex];
-    const requiredInputs = tab.querySelectorAll('input[required], select[required], textarea[required]');
+    const elements = tab.querySelectorAll(
+        'input[required], select[required], textarea[required], [data-required="required"], input[type="radio"][required]'
+    );
+
     let valid = true;
     let firstInvalidElement = null;
+    const radioGroupsValidated = new Set(); // Track validated radio groups by name
 
-    requiredInputs.forEach(input => {
-        const isFieldValid = validateField(input);
-        if (!isFieldValid && !firstInvalidElement) {
-            firstInvalidElement = input;
-        }
-        valid = valid && isFieldValid;
-    });
+    elements.forEach(element => {
+        let isValid = true;
 
-    // Validate checkbox groups within the tab
-    const checkboxGroups = tab.querySelectorAll('[data-required="required"]');
-    checkboxGroups.forEach(group => {
-        const isGroupValid = validateCheckboxGroup(group);
-        if (!isGroupValid && !firstInvalidElement) {
-            firstInvalidElement = group; // If a checkbox group is invalid, focus on the group
+        if (element.type === 'radio') {
+            const radioGroupName = element.name;
+            if (!radioGroupsValidated.has(radioGroupName)) {
+                isValid = validateRadioGroup(tab, radioGroupName);
+                radioGroupsValidated.add(radioGroupName);
+                if (!isValid && !firstInvalidElement) {
+                    firstInvalidElement = tab.querySelector(`input[name="${radioGroupName}"]`);
+                }
+            }
+        } else if (element.getAttribute('data-required') === 'required') {
+            isValid = validateCheckboxGroup(element);
+            if (!isValid && !firstInvalidElement) {
+                firstInvalidElement = element; // Focus the checkbox group if invalid
+            }
+        } else {
+            isValid = validateField(element);
+            if (!isValid && !firstInvalidElement) {
+                firstInvalidElement = element; // Focus the first invalid field
+            }
         }
-        valid = valid && isGroupValid;
-    });
 
-    const radioGroups = tab.querySelectorAll('input[type="radio"][required]');
-    const radioNames = new Set();
-    radioGroups.forEach(radio => radioNames.add(radio.name));
-    radioNames.forEach(name => {
-        const isRadioValid = validateRadioGroup(tab, name);
-        if (!isRadioValid && !firstInvalidElement) {
-            firstInvalidElement = tab.querySelector(`input[name="${name}"]`);
-        }
-        valid = valid && isRadioValid;
+        valid = valid && isValid;
     });
 
     // Smooth scroll and focus the first invalid element
@@ -789,51 +792,54 @@ function validateTab(tabIndex) {
     return valid;
 }
 
-    function attachDynamicValidation() {
-        const allInputs = document.querySelectorAll('input[required], select[required], textarea[required]');
-        allInputs.forEach(input => {
-            input.addEventListener('input', () => {
-                validateField(input);
+
+
+function attachDynamicValidation() {
+    const allInputs = document.querySelectorAll('input[required], select[required], textarea[required]');
+    allInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            validateField(input);
+        });
+    });
+
+    const checkboxGroups = document.querySelectorAll('[data-required="required"]');
+    checkboxGroups.forEach(group => {
+        const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                validateCheckboxGroup(group);
             });
         });
+    });
 
-        const checkboxGroups = document.querySelectorAll('[data-required="required"]');
-        checkboxGroups.forEach(group => {
-            const checkboxes = group.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', () => {
-                    validateCheckboxGroup(group);
-                });
-            });
+    const allRadioInputs = document.querySelectorAll('input[type="radio"][required]');
+    allRadioInputs.forEach(radio => {
+        radio.addEventListener('change', () => {
+            const tab = radio.closest('.tab');
+            validateRadioGroup(tab, radio.name);
         });
+    });
+}
 
-        const allRadioInputs = document.querySelectorAll('input[type="radio"][required]');
-        allRadioInputs.forEach(radio => {
-            radio.addEventListener('change', () => {
-                const tab = radio.closest('.tab');
-                validateRadioGroup(tab, radio.name);
-            });
-        });
-    }
 
-    // When Submit button is clicked, check for missing information
-    if (submitButton) {
-        submitButton.addEventListener('click', () => {
-            let allValid = true;
+// When Submit button is clicked, check for missing information
+if (submitButton) {
+    submitButton.addEventListener('click', () => {
+        let allValid = true;
 
-            for (let i = 0; i < tabs.length - 1; i++) { // Check all tabs except the last one (tab 5)
-                if (!validateTab(i)) {
-                    showTab(i); // Navigate to the first invalid tab
-                    allValid = false;
-                    break;
-                }
+        for (let i = 0; i < tabs.length; i++) { // Check all tabs except the last one (tab 5)
+            if (!validateTab(i)) {
+                showTab(i); // Navigate to the first invalid tab
+                allValid = false;
+                break;
             }
+        }
 
-            if (allValid) {
-                form.submit(); // Submit the form if all tabs are valid
-            }
-        });
-    }
+        if (allValid) {
+            form.submit(); // Submit the form if all tabs are valid
+        }
+    });
+}
 
 // Smooth scrolling and focus helper
 function smoothScrollToElement(element) {
@@ -843,22 +849,32 @@ function smoothScrollToElement(element) {
     }, 300); // Delay to ensure scroll finishes before focusing
 }
 
-// Form submission logic
-form.addEventListener('submit', (event) => {
+function validateAllTabs() {
     let allValid = true;
 
     for (let i = 0; i < tabs.length; i++) {
         if (!validateTab(i)) {
-            showTab(i); // Navigate to the invalid tab
+            showTab(i); // Navigate to the first invalid tab
             allValid = false;
             break;
         }
     }
 
-    if (!allValid) {
+    return allValid;
+}
+
+submitButton.addEventListener('click', (event) => {
+    if (!validateAllTabs()) {
+        event.preventDefault(); // Block submission
+    }
+});
+
+form.addEventListener('submit', (event) => {
+    if (!validateAllTabs()) {
         event.preventDefault();
     }
 });
+
 
     attachDynamicValidation();
 
@@ -1160,7 +1176,7 @@ form.addEventListener('submit', (event) => {
     });
 
 
-    // List of pet species options
+    // List of preferences
     const goodwith_options = [
       { id: "f320_0", value: "Dogs" },
       { id: "f320_1", value: "Cats" },
@@ -1194,16 +1210,16 @@ form.addEventListener('submit', (event) => {
       div.appendChild(label);
       goodwith_container.appendChild(div);
     });
-    // Function to update the hidden input with selected checkboxes
-    function updateSpeciesList() {
-      const selectedSpecies = [];
+    // Function to update the hidden input for goodwith options
+    function updateGoodWithList() {
+      const selectedGoodWith = [];
       const checkboxes = document.querySelectorAll('#f320 input[type="checkbox"]:checked');
       checkboxes.forEach(checkbox => {
-        selectedSpecies.push(checkbox.value);
+        selectedGoodWith.push(checkbox.value);
       });
 
       // Join the selected species into a single string
-      document.getElementById('goodwith_list').value = selectedSpecies.join(', ');
+      document.getElementById('goodwith_list').value = selectedGoodWith.join(', ');
     }
 
 
@@ -1275,6 +1291,12 @@ form.addEventListener('submit', (event) => {
       unsupervised_options_element.appendChild(div);
     });
 
+
+    // Update both lists on form submission
+    document.getElementById("adoption_form").addEventListener("submit", function(event) {
+      updateSpeciesList();
+      updateGoodWithList();
+    });
   </script>
 </body>
 </html>
