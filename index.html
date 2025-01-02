@@ -17,27 +17,50 @@
         display: flex;
         cursor: pointer;
         margin-bottom: 10px;
-        /* max-width: 1000px; */
+        flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
       }
+
       .tab-buttons button {
-        /* margin-right: 5px; */
-        /* padding: 10px 15px; */
-        cursor: pointer;
+        flex: 1; /* Make each button take equal width */
+        margin-right: 5px; /* Adjust the spacing between buttons */
+        padding: 10px 15px; /* Add padding for better touch interaction */
         background-color: #f9f9f9;
         color: #e85b93;
         border: none;
         font-size: 16px;
+        text-align: center; /* Center the text */
       }
+
       .tab-buttons button.active {
         background-color: #f9f9f9;
         color: #e85b93;
         border: none;
         font-weight: 1000;
       }
+
       .tab-buttons button:hover {
         background-color: #f9f9f9;
         color: #ec7ba8;
         border: none;
+      }
+
+      @media (max-width: 768px) {
+        .tab-buttons {
+          flex-direction: column; /* Stack buttons vertically on smaller screens */
+          align-items: center; /* Center align the buttons */
+        }
+
+        .tab-buttons button {
+          width: 100%; /* Make each button take up the full width */
+          margin-bottom: 5px; /* Add space between buttons */
+        }
+      }
+
+      @media (max-width: 480px) {
+        .tab-buttons button {
+          font-size: 14px; /* Reduce font size for even smaller screens */
+          padding: 8px 12px; /* Reduce padding */
+        }
       }
 
       /* replaces tab content */
