@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LWHA Adoption Form</title>
+    <title>LWHA Adoption Application</title>
 
     <style>
       body {
@@ -23,19 +23,19 @@
         /* margin-right: 5px; */
         /* padding: 10px 15px; */
         cursor: pointer;
-        background-color: white;
+        background-color: #f9f9f9;
         color: #e85b93;
         border: none;
         font-size: 16px;
       }
       .tab-buttons button.active {
-        background-color: white;
+        background-color: #f9f9f9;
         color: #e85b93;
         border: none;
         font-weight: 1000;
       }
       .tab-buttons button:hover {
-        background-color: white;
+        background-color: #f9f9f9;
         color: #ec7ba8;
         border: none;
       }
@@ -51,7 +51,14 @@
       form {
         max-width: 600px;
         margin: auto;
-        background-color: #f9f9f9;
+      }
+
+      .form-note {
+        /* font-size: 1rem; */
+        text-align: center;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        /* color: #333; */
       }
 
       .form-row {
@@ -63,6 +70,15 @@
       .form-row div {
         flex: 1;
         width: 100%;
+      }
+
+      .form-container {
+        background-color: #f9f9f9;
+        padding: 20px; /* Space inside the container */
+        border-radius: 8px; /* Rounded corners for a modern look */
+        max-width: 800px; /* Optional: constrain the width of the form */
+        margin: 0 auto; /* Center the container horizontally */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
       }
 
       .error {
@@ -93,6 +109,11 @@
         font-weight: bold;
       }
 
+      h1 {
+        text-align: center;
+        margin-bottom: 0px;
+      }
+
       h3 {
         display: block;
         margin-bottom: 5px;
@@ -110,6 +131,7 @@
         margin-bottom: 15px;
         border: 1px solid #ccc;
         border-radius: 4px;
+        box-sizing: border-box;
       }
 
       button {
@@ -171,10 +193,11 @@
 
 </head>
 <body>
-  <h1>LWHA Adoption Form</h1>
-
+  <div class="form-container">
+  <h1>LWHA Adoption Application</h1>
+  <p class="form-note">Fields marked with <span class="required">*</span> are required.</p>
   
-
+  <!-- <div class="form-container"> -->
   <form novalidate id="adoption_form" method="POST" action="https://us09d.sheltermanager.com/service" accept-charset="utf-8">
     <!-- Tab Navigation -->
     <div class="tab-buttons">
