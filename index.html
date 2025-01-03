@@ -657,27 +657,23 @@
 
     // Function to display the correct tab
     function showTab(tabIndex) {
-      tabs.forEach((tab, index) => {
-          tab.classList.toggle('active', index === tabIndex); // Show current tab
-      });
+        tabs.forEach((tab, index) => {
+            tab.classList.toggle('active', index === tabIndex); // Show current tab
+        });
 
-      tabButtons.forEach((button, index) => {
-          button.classList.toggle('active', index === tabIndex); // Highlight active tab button
-      });
+        tabButtons.forEach((button, index) => {
+            button.classList.toggle('active', index === tabIndex); // Highlight active tab button
+        });
 
-      currentTabIndex = tabIndex;
-      updateNavigationButtons();
+        currentTabIndex = tabIndex;
+        updateNavigationButtons();
 
-      // Only scroll to the first input if there's an error
-      const firstInput = tabs[tabIndex].querySelector('input, select, textarea');
-      if (firstInput && !tabs[tabIndex].querySelector('.error')) {
-          window.scrollTo(0, 0); // Stay at the top of the page unless there's an error
-      }
-      if (firstInput && tabs[tabIndex].querySelector('.error')) {
-          firstInput.focus(); // Focus on the first invalid element if there's an error
-      }
-  }
-
+        // Focus the first input or element of the current tab (if available)
+        const firstInput = tabs[tabIndex].querySelector('input, select, textarea');
+        if (firstInput) {
+            firstInput.focus();
+        }
+    }
 
 
     // Function to update button states
@@ -799,47 +795,48 @@
 
 function validateTab(tabIndex) {
     const tab = tabs[tabIndex];
-    const requiredInputs = tab.querySelectorAll('input[required], select[required], textarea[required]');
+    const elements = tab.querySelectorAll(
+        'input[required], select[required], textarea[required], [data-required="required"], input[type="radio"][required]'
+    );
+
     let valid = true;
     let firstInvalidElement = null;
+    const radioGroupsValidated = new Set(); // Track validated radio groups by name
 
-    requiredInputs.forEach(input => {
-        const isFieldValid = validateField(input);
-        if (!isFieldValid && !firstInvalidElement) {
-            firstInvalidElement = input;
+    elements.forEach(element => {
+        let isValid = true;
+
+        if (element.type === 'radio') {
+            const radioGroupName = element.name;
+            if (!radioGroupsValidated.has(radioGroupName)) {
+                isValid = validateRadioGroup(tab, radioGroupName);
+                radioGroupsValidated.add(radioGroupName);
+                if (!isValid && !firstInvalidElement) {
+                    firstInvalidElement = tab.querySelector(`input[name="${radioGroupName}"]`);
+                }
+            }
+        } else if (element.getAttribute('data-required') === 'required') {
+            isValid = validateCheckboxGroup(element);
+            if (!isValid && !firstInvalidElement) {
+                firstInvalidElement = element; // Focus the checkbox group if invalid
+            }
+        } else {
+            isValid = validateField(element);
+            if (!isValid && !firstInvalidElement) {
+                firstInvalidElement = element; // Focus the first invalid field
+            }
         }
-        valid = valid && isFieldValid;
+
+        valid = valid && isValid;
     });
 
-    // Validate checkbox groups within the tab
-    const checkboxGroups = tab.querySelectorAll('[data-required="required"]');
-    checkboxGroups.forEach(group => {
-        const isGroupValid = validateCheckboxGroup(group);
-        if (!isGroupValid && !firstInvalidElement) {
-            firstInvalidElement = group; // If a checkbox group is invalid, focus on the group
-        }
-        valid = valid && isGroupValid;
-    });
-
-    const radioGroups = tab.querySelectorAll('input[type="radio"][required]');
-    const radioNames = new Set();
-    radioGroups.forEach(radio => radioNames.add(radio.name));
-    radioNames.forEach(name => {
-        const isRadioValid = validateRadioGroup(tab, name);
-        if (!isRadioValid && !firstInvalidElement) {
-            firstInvalidElement = tab.querySelector(`input[name="${name}"]`);
-        }
-        valid = valid && isRadioValid;
-    });
-
-    // Smooth scroll and focus the first invalid element, if necessary
+    // Smooth scroll and focus the first invalid element
     if (!valid && firstInvalidElement) {
         smoothScrollToElement(firstInvalidElement);
     }
 
     return valid;
 }
-
 
 
 
