@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>LWHA Adoption Application</title>
 
     <style>
@@ -27,7 +27,7 @@
         background-color: #f9f9f9;
         color: #e85b93;
         border: none;
-        font-size: 16px;
+        font-size: 15px;
         text-align: center; /* Center the text */
       }
 
@@ -207,7 +207,7 @@
         color: white;
         border: none;
         padding: 10px 20px;
-        font-size: 16px;
+        font-size: 15px;
         cursor: pointer;
         border-radius: 5px;
       }
@@ -645,16 +645,6 @@
 
   
   <script>
-    document.addEventListener('focusin', (e) => {
-      if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea') {
-        document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
-      }
-    });
-
-    document.addEventListener('focusout', () => {
-      document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1');
-    });
-
     
     // Tab Navigation Logic
     const tabs = document.querySelectorAll('.tab');
