@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Tab Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .tab {
+            display: none;
+        }
+        .tab.active {
+            display: block;
+        }
+        .tab-buttons {
+            margin-bottom: 20px;
+        }
+        .tab-buttons button {
+            margin-right: 10px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .tab-buttons button.active {
+            background-color: #007BFF;
+            color: white;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-field {
+            margin-bottom: 15px;
+        }
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .error {
+            border: 2px solid red;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <form id="multiTabForm">
+        <div class="tab-buttons">
+            <button type="button" class="tab-btn active" data-tab="1">Tab 1</button>
+            <button type="button" class="tab-btn" data-tab="2">Tab 2</button>
+            <button type="button" class="tab-btn" data-tab="3">Tab 3</button>
+            <button type="button" class="tab-btn" data-tab="4">Tab 4</button>
+            <button type="button" class="tab-btn" data-tab="5">Submit</button>
+        </div>
+
+        <div id="tab-1" class="tab active">
+            <div class="form-field">
+                <label for="field1">Field 1 (Required):</label>
+                <input type="text" id="field1" required>
+                <div class="error-message"></div>
+            </div>
+            <div class="form-field">
+                <label for="textarea1">Textarea 1 (Required):</label>
+                <textarea id="textarea1" required></textarea>
+                <div class="error-message"></div>
+            </div>
+        </div>
+
+        <div id="tab-2" class="tab">
+            <div class="form-field">
+                <label for="field2">Field 2 (Required):</label>
+                <input type="text" id="field2" required>
+                <div class="error-message"></div>
+            </div>
+            <div class="form-field">
+                <h3 for="f301">Please list the names and ages of all persons living in your home. <span class="required">*</span></h3>
+                <textarea  style="height: 150px; resize: none;" type="text" id="f301" name="personshome_301" required></textarea>
+                <div class="error-message"></div>
+              </div>
+        </div>
+
+        <div id="tab-3" class="tab">
+            <div class="form-field">
+                <label for="field3">Field 3 (Required):</label>
+                <input type="text" id="field3" required>
+                <div class="error-message"></div>
+            </div>
+            <div class="form-field">
+                <label for="textarea3">Textarea 3 (Required):</label>
+                <textarea id="textarea3" required></textarea>
+                <div class="error-message"></div>
+            </div>
+        </div>
+
+        <div id="tab-4" class="tab">
+            <div class="form-field">
+                <label for="field4">Field 4 (Required):</label>
+                <input type="text" id="field4" required>
+                <div class="error-message"></div>
+            </div>
+            <div class="form-field">
+                <label for="textarea4">Textarea 4 (Required):</label>
+                <textarea id="textarea4" required></textarea>
+                <div class="error-message"></div>
+            </div>
+        </div>
+
+        <div id="tab-5" class="tab">
+            <p>Click Submit to complete the form.</p>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const form = document.getElementById('multiTabForm');
+
+        function showTab(tabIndex) {
+            tabs.forEach((tab, index) => {
+                tab.classList.toggle('active', index === tabIndex);
+            });
+            tabButtons.forEach((btn, index) => {
+                btn.classList.toggle('active', index === tabIndex);
+            });
+        }
+
+        function validateTab(tabIndex) {
+            const tab = tabs[tabIndex];
+            const inputs = tab.querySelectorAll('input[required], textarea[required]');
+            let valid = true;
+
+            inputs.forEach(input => {
+                const errorMessage = input.nextElementSibling;
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    errorMessage.textContent = 'This field is required';
+                    valid = false;
+                } else {
+                    input.classList.remove('error');
+                    errorMessage.textContent = '';
+                }
+            });
+
+            return valid;
+        }
+
+        tabButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                if (index === tabs.length - 1) { // Submit tab
+                    for (let i = 0; i < tabs.length - 1; i++) {
+                        if (!validateTab(i)) {
+                            showTab(i);
+                            return;
+                        }
+                    }
+                }
+                showTab(index);
+            });
+        });
+
+        form.addEventListener('submit', (event) => {
+            let allValid = true;
+
+            for (let i = 0; i < tabs.length - 1; i++) {
+                if (!validateTab(i)) {
+                    showTab(i);
+                    allValid = false;
+                    break;
+                }
+            }
+
+            if (!allValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
